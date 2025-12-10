@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Inspiring Story of Baseball in Taiwan</title>
+    <style>
+        :root {
+            --primary-color: #b71c1c; /* Magazine Red */
+            --secondary-color: #1a237e; /* Magazine Blue */
+            --bg-color: #f9f9f9;
+            --text-color: #333;
+            --card-bg: #fff;
+            --border-color: #ddd;
+            --highlight: #fff3cd;
+            --ref-word-color: #666;
+            --correct: #2e7d32;
+            --wrong: #c62828;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #ef5350;
+            --secondary-color: #7986cb;
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --highlight: #3f3f00;
+            --ref-word-color: #aaa;
+        }
+
+        body {
+            font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        header {
+            background: linear-gradient(135deg, #b71c1c, #0d47a1);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button.icon-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        button.icon-btn:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        /* Tabs */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            background: var(--card-bg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-color);
+            border-bottom: 3px solid transparent;
+            transition: 0.3s;
+        }
+
+        .tab:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Article Styles */
+        .article-text {
+            font-size: 1.1rem;
+            text-align: justify;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .vocab-highlight {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .ref-word {
+            font-size: 0.9em;
+            color: var(--ref-word-color);
+            background-color: rgba(0,0,0,0.05);
+            padding: 0 4px;
+            border-radius: 4px;
+            margin-left: 2px;
+        }
+
+        .phrase-highlight {
+            color: var(--secondary-color);
+            font-weight: bold;
+            border-bottom: 1px dashed var(--secondary-color);
+        }
+
+        /* Vocab Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        tr:hover {
+            background-color: rgba(0,0,0,0.02);
+        }
+
+        /* Grammar Section */
+        .grammar-point {
+            background: var(--card-bg);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--secondary-color);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .grammar-title {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .example {
+            font-style: italic;
+            color: var(--text-color);
+            margin-top: 5px;
+            padding-left: 15px;
+            border-left: 2px solid #ddd;
+        }
+
+        /* Quiz Styles */
+        .quiz-container {
+            background: var(--card-bg);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .question-box {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .options label {
+            display: block;
+            padding: 8px 10px;
+            margin: 5px 0;
+            background: rgba(0,0,0,0.03);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .options label:hover {
+            background: rgba(0,0,0,0.08);
+        }
+
+        .options input {
+            margin-right: 10px;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .feedback.correct {
+            background-color: #e8f5e9;
+            color: var(--correct);
+            display: block;
+        }
+
+        .feedback.wrong {
+            background-color: #ffebee;
+            color: var(--wrong);
+            display: block;
+        }
+
+        [data-theme="dark"] .feedback.correct { background-color: #1b5e20; color: #fff; }
+        [data-theme="dark"] .feedback.wrong { background-color: #b71c1c; color: #fff; }
+
+        .btn-check {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        
+        h2 { border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; margin-top: 30px;}
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .article-text { padding: 15px; font-size: 1rem; }
+            .tab { padding: 10px 15px; font-size: 0.9rem; }
+            th, td { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The Inspiring Story of Baseball in Taiwan</h1>
+    <p>Unit 2: 臺灣棒球的熱血與榮耀</p>
+    <div class="controls">
+        <button class="icon-btn" onclick="toggleTheme()">🌗 Mode</button>
+        <button class="icon-btn" onclick="adjustFont(1)">A+</button>
+        <button class="icon-btn" onclick="adjustFont(-1)">A-</button>
+    </div>
+</header>
+
+<div class="tab-container">
+    <div class="tab active" onclick="switchTab('tab1')">文章全文</div>
+    <div class="tab" onclick="switchTab('tab2')">單字與測驗</div>
+    <div class="tab" onclick="switchTab('tab3')">文法解析</div>
+    <div class="tab" onclick="switchTab('tab4')">綜合練習題</div>
+</div>
+
+<!-- TAB 1: 文章全文 -->
+<div id="tab1" class="content active">
+    <div class="article-text" id="articleContent">
+        <p>With roots <span class="phrase-highlight">tracing back to</span> the Japanese <strong class="vocab-highlight">colonial</strong> period from 1895 to 1945, baseball has long <span class="phrase-highlight">held a special place in Taiwan’s heart</span>. One of the early events that helped fuel Taiwan’s passion for the sport came in 1968, when the Red Leaves Little <strong class="vocab-highlight">League</strong> team from Taitung beat a visiting Japanese powerhouse <span class="ref-word">(n. 強隊、強國)</span>. The win captured lots of attention and <strong class="vocab-highlight">sparked</strong> excitement all over the island.</p>
+
+        <p>Baseball grew even more popular in 1969, when Taichung’s Golden Dragon team won the Little League World Series (LLWS). It was a feat <span class="ref-word">(n. 壯舉、功績)</span> which proved that Taiwan could compete on the global stage. Taiwanese teams dominated the LLWS for many years thereafter <span class="ref-word">(adv. 之後、以後)</span>, earning Taiwan a <strong class="vocab-highlight">reputation</strong> as a baseball heavyweight <span class="ref-word">(n. 重量級人物；具有影響力的人事物)</span>.</p>
+
+        <p>Baseball in Taiwan took another big step in 1990 with the start of the Chinese Professional Baseball League (CPBL). This let local players shine and gave fans new heroes to cheer for. Soon after, Taiwan showed its strength again by winning a silver medal at the 1992 Barcelona Olympics. However, the CPBL struggled in the 1990s and 2000s due to <strong class="vocab-highlight">multiple</strong> game-fixing <strong class="vocab-highlight">scandals</strong>, which led to a sharp fall in <strong class="vocab-highlight">attendance</strong>.</p>
+
+        <p>In the following years, the CPBL worked hard to win back the public’s trust. Through strict anti-corruption rules and better management, the league slowly began to recover. Strong performances by the national team in the 2001 Baseball World Cup and the 2013 World Baseball Classic (WBC) also helped bring back public <strong class="vocab-highlight">enthusiasm</strong>. In addition, players like Chien-Ming Wang and Hong-Chih Kuo showcased <span class="ref-word">(v. 展示(優點))</span> Taiwanese talent on the world stage with their achievements in Major League Baseball.</p>
+
+        <p>In 2023, Taipei <strong class="vocab-highlight">Dome</strong> officially opened, providing a state-of-the-art <span class="ref-word">(adj. 最先進的)</span> stadium <strong class="vocab-highlight">appropriate</strong> for international games. The next year, Taiwan’s baseball fever reached a new peak when the national team won the WBSC Premier12 <strong class="vocab-highlight">championship</strong>. The victory led to a national celebration and stood as a testament <span class="ref-word">(n. 證明、驗證)</span> to the hard work of <strong class="vocab-highlight">generations</strong> of players and coaches. <span class="phrase-highlight">Looking ahead</span> to 2026, Taiwan <span class="phrase-highlight">is set to</span> return to the WBC with <strong class="vocab-highlight">renewed</strong> confidence and a stronger <strong class="vocab-highlight">foundation</strong> to compete once again among the world’s best.</p>
+
+        <p>Taiwanese baseball has had its <span class="phrase-highlight">highs and lows</span>. However, its story is one of passion, perseverance <span class="ref-word">(n. 堅持不懈、不屈不撓)</span>, and pride. As the sport continues to grow, it inspires new generations to <span class="phrase-highlight">carry</span> the dream <span class="phrase-highlight">forward</span>, both on and off the field.</p>
+    </div>
+</div>
+
+<!-- TAB 2: 單字介紹 -->
+<div id="tab2" class="content">
+    <h2>Vocabulary List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Word</th>
+                <th>Meaning</th>
+                <th>Example Sentence</th>
+            </tr>
+        </thead>
+        <tbody id="vocabTableBody">
+            <!-- Populated by JS -->
+        </tbody>
+    </table>
+
+    <h2>Vocabulary Quiz</h2>
+    <p>Test your knowledge with these mixed questions (Definition & Context).</p>
+    <div id="vocabQuizContainer" class="quiz-container">
+        <!-- Populated by JS -->
+    </div>
+</div>
+
+<!-- TAB 3: 文法講解 -->
+<div id="tab3" class="content">
+    <h2>Language Spotlight</h2>
+    
+    <div class="grammar-point">
+        <div class="grammar-title">1. trace back to 追溯至、源自於 (某個年代、時期、事件)</div>
+        <p><strong>相似詞：</strong> date back to, date from, go back to</p>
+        <p>此片語動詞常用於某事件的起源或歷史背景，trace 在此作不及物動詞。此外，trace 也可作及物動詞。</p>
+        <div class="example">Peter's love of storytelling traces back to the stories his grandmother used to tell.</div>
+        <div class="example">The origins of jazz music can be traced back to the late 19th century in New Orleans.</div>
+    </div>
+
+    <div class="grammar-point">
+        <div class="grammar-title">2. hold a special place in one's heart 在某人心中占有特殊地位</div>
+        <p>hold 在此指「擁有」。此片語表示某人事物對某群體具有格外珍貴或重要的意義。</p>
+        <div class="example">Classical music has always held a special place in Rafael's heart.</div>
+    </div>
+
+    <div class="grammar-point">
+        <div class="grammar-title">3. look ahead 展望未來；向前看</div>
+        <p><strong>反義詞：</strong> look back at/on sth (回顧；回想過去)</p>
+        <p>片語動詞 look ahead 字面意為「向前看」，用來指「展望未來、作長遠打算」的意思，之後常搭配 to V. 或 to N./V-ing 使用。</p>
+        <div class="example">Students should look ahead to their future careers when deciding which courses to take in college.</div>
+    </div>
+
+    <div class="grammar-point">
+        <div class="grammar-title">4. be set to V. 預計將...；準備好要...</div>
+        <p>set 在此表示「預期的；計畫好的」，後面可接 to V. 來指即將發生的動作，或接 for N. 來表示準備好迎接某事。</p>
+        <div class="example">The new museum is set to open next month.</div>
+        <div class="example">The city is set for a week of celebrations during the festival.</div>
+    </div>
+
+    <div class="grammar-point">
+        <div class="grammar-title">5. highs and lows 高潮與低谷；起起伏伏</div>
+        <p><strong>同義詞：</strong> ups and downs, peaks and troughs</p>
+        <p>在此 highs 指「高潮、順境、成功」，lows 指「低潮、逆境、失敗」，常以複數形來表示「人生或經歷中的起落」。</p>
+        <div class="example">Their relationship has seen many highs and lows, but they have remained committed to each other.</div>
+    </div>
+
+    <div class="grammar-point">
+        <div class="grammar-title">6. carry sth forward 推動某事繼續發展、延續下去</div>
+        <p>此片語動詞指「推動某事使其繼續發展、傳承」，可用於傳承理念、文化、傳統或精神，受詞亦可置於 carry 和 forward 之間。</p>
+        <div class="example">It is important to carry forward our cultural traditions so they will not be forgotten.</div>
+    </div>
+
+    <h2>Grammar Check</h2>
+    <div id="grammarQuizContainer" class="quiz-container"></div>
+</div>
+
+<!-- TAB 4: 練習題 -->
+<div id="tab4" class="content">
+    <h2>I. Magazine Integrated Questions</h2>
+    <div id="magQuizContainer" class="quiz-container"></div>
+
+    <h2>II. GSAT Practice: Cloze Test (綜合測驗)</h2>
+    <div class="article-text" style="font-size: 1rem;">
+        <p>Baseball is more than just a sport in Taiwan; it is a symbol of national pride. Its history __1__ the Japanese colonial era. In 1968, the Red Leaves Little League team defeated a Japanese team, which __2__ great excitement across the island. Since then, Taiwanese teams have performed well internationally. However, the professional league faced a crisis in the 1990s due to gambling scandals, leading to a drop in __3__. Fortunately, with better management and international success, fans' passion has returned. The opening of the Taipei Dome and the recent championship victory serve as a __4__ to the players' hard work. As Taiwan looks to the future, the sport is __5__ to reach new heights.</p>
+    </div>
+    <div id="clozeQuizContainer" class="quiz-container"></div>
+
+    <h2>III. GSAT Practice: Reading Comprehension (閱讀測驗)</h2>
+    <div id="readingQuizContainer" class="quiz-container"></div>
+</div>
+
+<script>
+    // --- Data ---
+    // Added "quizSentence" which is different from the example "sentence" to prevent rote memorization
+    const vocabList = [
+        { 
+            word: "colonial", pos: "[adj.]", meaning: "殖民地的、殖民主義的", 
+            sentence: "Algeria was under French colonial rule for more than a century.",
+            quizSentence: "Many buildings in the old district still reflect the architectural style of the _____ era."
+        },
+        { 
+            word: "league", pos: "[n.]", meaning: "(體育項目的) 聯盟、聯賽", 
+            sentence: "Joining the local soccer league helped Vincent develop his skills.",
+            quizSentence: "The best basketball players in the world dream of joining the professional _____."
+        },
+        { 
+            word: "spark", pos: "[v.]", meaning: "引發、引起", 
+            sentence: "Doug's speech to the class sparked a heated debate.",
+            quizSentence: "The controversial news report might _____ protests across the city."
+        },
+        { 
+            word: "reputation", pos: "[n.]", meaning: "名聲、聲譽", 
+            sentence: "In some cases, a single mistake can cause lasting damage to a person's reputation.",
+            quizSentence: "That restaurant has a terrible _____ for slow service and cold food."
+        },
+        { 
+            word: "multiple", pos: "[adj.]", meaning: "多種的、多個的", 
+            sentence: "There are multiple treatments that could be effective.",
+            quizSentence: "She suffered _____ injuries from the accident and had to stay in the hospital."
+        },
+        { 
+            word: "scandal", pos: "[n.]", meaning: "醜聞", 
+            sentence: "A political scandal involving the president shocked the entire nation.",
+            quizSentence: "The company's stock price dropped significantly after the bribery _____ was revealed."
+        },
+        { 
+            word: "attendance", pos: "[n.]", meaning: "出席人數；參加", 
+            sentence: "Attendance at the conference increased significantly this year.",
+            quizSentence: "The teacher takes _____ at the beginning of every class to see who is missing."
+        },
+        { 
+            word: "enthusiasm", pos: "[n.]", meaning: "熱忱、熱情", 
+            sentence: "The children showed great enthusiasm during their visit to the science museum.",
+            quizSentence: "Despite his lack of experience, he tackled the new project with great _____."
+        },
+        { 
+            word: "dome", pos: "[n.]", meaning: "穹頂體育場；圓頂", 
+            sentence: "The city built a new dome to host concerts and baseball games.",
+            quizSentence: "The stadium has a retractable _____ so games can be played even when it rains."
+        },
+        { 
+            word: "appropriate", pos: "[adj.]", meaning: "適當的、合適的", 
+            sentence: "The teacher chose an appropriate example for the lesson.",
+            quizSentence: "Wearing flip-flops is not _____ for a formal job interview."
+        },
+        { 
+            word: "championship", pos: "[n.]", meaning: "冠軍頭銜；冠軍賽", 
+            sentence: "The team received gold medals for winning the championship.",
+            quizSentence: "After months of hard training, they finally won the national _____."
+        },
+        { 
+            word: "generation", pos: "[n.]", meaning: "世代、同代人", 
+            sentence: "Each generation faces unique challenges while shaping the culture.",
+            quizSentence: "The older _____ often finds it difficult to keep up with rapidly changing technology."
+        },
+        { 
+            word: "renew", pos: "[v.]", meaning: "更新、重新開始", 
+            sentence: "Sid took a short vacation that helped renew his energy and focus.",
+            quizSentence: "I need to go to the library to _____ the books I borrowed last month."
+        },
+        { 
+            word: "foundation", pos: "[n.]", meaning: "基礎、根基；創立", 
+            sentence: "Education provides an important foundation for future success.",
+            quizSentence: "Trust and honesty are the _____ of a healthy relationship."
+        }
+    ];
+
+    // --- Tab Logic ---
+    function switchTab(tabId) {
+        document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    // --- Display Features ---
+    function toggleTheme() {
+        if (document.body.getAttribute('data-theme') === 'dark') {
+            document.body.removeAttribute('data-theme');
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+    }
+
+    let fontSize = 100;
+    function adjustFont(dir) {
+        fontSize += dir * 10;
+        if (fontSize < 80) fontSize = 80;
+        if (fontSize > 150) fontSize = 150;
+        document.querySelector('.article-text').style.fontSize = fontSize + '%';
+    }
+
+    // --- Quiz Generators ---
+
+    function createQuizItem(id, question, options, answerIndex, explanation) {
+        let html = `<div class="question-box" id="q-${id}">
+            <p><strong>${question}</strong></p>
+            <div class="options">`;
+        
+        options.forEach((opt, idx) => {
+            html += `<label><input type="radio" name="q${id}" value="${idx}"> (${String.fromCharCode(65+idx)}) ${opt}</label>`;
+        });
+
+        html += `</div>
+            <button class="btn-check" onclick="checkAnswer('${id}', ${answerIndex})">Check Answer</button>
+            <div class="feedback" id="fb-${id}">
+                <span class="msg"></span>
+                <div style="font-weight:normal; margin-top:5px; font-size:0.9em">${explanation}</div>
+            </div>
+        </div>`;
+        return html;
+    }
+
+    function checkAnswer(id, correctIdx) {
+        const selected = document.querySelector(`input[name="q${id}"]:checked`);
+        const feedback = document.getElementById(`fb-${id}`);
+        const msg = feedback.querySelector('.msg');
+        
+        if (!selected) return;
+
+        feedback.className = 'feedback'; // reset
+        if (parseInt(selected.value) === correctIdx) {
+            feedback.classList.add('correct');
+            msg.textContent = "✅ Correct!";
+        } else {
+            feedback.classList.add('wrong');
+            msg.textContent = `❌ Incorrect. The correct answer is (${String.fromCharCode(65+correctIdx)}).`;
+        }
+    }
+
+    // --- Initialization ---
+    window.onload = function() {
+        // 1. Populate Vocab Table
+        const tbody = document.getElementById('vocabTableBody');
+        vocabList.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td><strong>${item.word}</strong> <span style="font-size:0.8em; color:gray">${item.pos}</span></td><td>${item.meaning}</td><td>${item.sentence}</td>`;
+            tbody.appendChild(tr);
+        });
+
+        // 2. Generate Vocab Quiz (Improved Variety)
+        let vocabQuizHTML = "";
+        
+        // Shuffle the vocab list first to get random order
+        let shuffledVocab = [...vocabList].sort(() => 0.5 - Math.random());
+        
+        shuffledVocab.forEach((wordData, i) => {
+            // Alternate between Definition check and Context Cloze
+            const type = Math.random() > 0.5 ? 'def' : 'context'; 
+            
+            let question, options, answer, explanation;
+
+            if (type === 'def') {
+                // Type A: Meaning Check
+                question = `${i+1}. What is the meaning of "<strong>${wordData.word}</strong>"?`;
+                
+                // Get 3 random distractors (meanings)
+                let distractors = vocabList.filter(w => w.word !== wordData.word)
+                                           .sort(() => 0.5 - Math.random())
+                                           .slice(0, 3)
+                                           .map(w => w.meaning);
+                
+                // Combine and shuffle options
+                let optionList = [wordData.meaning, ...distractors].sort(() => 0.5 - Math.random());
+                options = optionList;
+                answer = optionList.indexOf(wordData.meaning);
+                explanation = `<strong>${wordData.word}</strong>: ${wordData.meaning}`;
+            } else {
+                // Type B: New Context Sentence (Cloze)
+                question = `${i+1}. Fill in the blank: <br> "${wordData.quizSentence.replace('_____', '_____')}"`;
+                
+                // Get 3 random distractors (words)
+                let distractors = vocabList.filter(w => w.word !== wordData.word)
+                                           .sort(() => 0.5 - Math.random())
+                                           .slice(0, 3)
+                                           .map(w => w.word);
+                
+                // Combine and shuffle options
+                let optionList = [wordData.word, ...distractors].sort(() => 0.5 - Math.random());
+                options = optionList;
+                answer = optionList.indexOf(wordData.word);
+                explanation = `Complete sentence: "${wordData.quizSentence.replace('_____', wordData.word)}"`;
+            }
+            vocabQuizHTML += createQuizItem(`v${i}`, question, options, answer, explanation);
+        });
+        document.getElementById('vocabQuizContainer').innerHTML = vocabQuizHTML;
+
+        // 3. Grammar Quiz
+        let grammarHTML = "";
+        grammarHTML += createQuizItem('g1', 'The ancient tradition _____ the 10th century.', ['traces back to', 'looks ahead', 'carries forward', 'is set to'], 0, 'trace back to 追溯至...');
+        grammarHTML += createQuizItem('g2', 'Despite the difficulties, we must _____ and plan for the future.', ['trace back', 'look ahead', 'hold a place', 'highs and lows'], 1, 'look ahead 展望未來');
+        grammarHTML += createQuizItem('g3', 'The team _____ win the championship this year given their strong lineup.', ['is set to', 'traces back to', 'carries forward', 'dates from'], 0, 'be set to V. 預計將...');
+        document.getElementById('grammarQuizContainer').innerHTML = grammarHTML;
+
+        // 4. Integrated & GSAT Quiz
+        let magHTML = "";
+        // Original Magazine Questions
+        magHTML += createQuizItem('m1', 'According to the article, what was a positive sign in Taiwan\'s baseball history at the turn of the 21st century?', 
+            ['Winning a silver medal at the Sydney Olympics', 'A strong performance in the Baseball World Cup', 'The rise of many inspiring players in the CPBL', 'Dominating the Little League World Series'], 
+            1, '文章提到: Strong performances by the national team in the 2001 Baseball World Cup... helped bring back public enthusiasm.');
+        
+        magHTML += createQuizItem('m2', 'According to the article, which of the following statements is true?', 
+            ['Taipei Dome officially opened in 2023.', 'The Red Leaves team won the Little League World Series in 1969.', 'Taiwan\'s national team won the WBSC Premier12 championship in 2025.', 'Game-fixing scandals caused the CPBL to struggle in the 1990s and 2000s.'], 
+            3, '文章提到: the CPBL struggled... due to multiple game-fixing scandals.');
+        document.getElementById('magQuizContainer').innerHTML = magHTML;
+
+        // Cloze
+        let clozeHTML = "";
+        clozeHTML += createQuizItem('c1', '1. (A) traces back to (B) looks ahead to (C) carries forward (D) is set to', ['traces back to', 'looks ahead to', 'carries forward', 'is set to'], 0, '歷史「追溯至」...');
+        clozeHTML += createQuizItem('c2', '2. (A) renewed (B) sparked (C) showcased (D) appropriated', ['renewed', 'sparked', 'showcased', 'appropriated'], 1, 'sparked excitement (引發了興奮)。');
+        clozeHTML += createQuizItem('c3', '3. (A) attendance (B) generation (C) foundation (D) scandal', ['attendance', 'generation', 'foundation', 'scandal'], 0, 'scandals led to a fall in attendance (醜聞導致入場人數下降)。');
+        clozeHTML += createQuizItem('c4', '4. (A) scandal (B) dome (C) testament (D) reputation', ['scandal', 'dome', 'testament', 'reputation'], 2, 'stand as a testament to... (作為...的證明)。');
+        clozeHTML += createQuizItem('c5', '5. (A) set (B) trace (C) hold (D) look', ['set', 'trace', 'hold', 'look'], 0, 'be set to V. (準備好要/預計)。');
+        document.getElementById('clozeQuizContainer').innerHTML = clozeHTML;
+
+        // Reading Comprehension
+        let readHTML = "";
+        readHTML += createQuizItem('r1', 'What is the main idea of this article?', 
+            ['The rules of playing baseball in Taiwan.', 'The biography of Chien-Ming Wang.', 'The history, struggles, and revival of baseball in Taiwan.', 'The construction process of the Taipei Dome.'], 
+            2, '文章講述了台灣棒球從日治時期至今的歷史、醜聞低谷以及近期的復甦。');
+        readHTML += createQuizItem('r2', 'Which word best describes the history of Taiwanese baseball mentioned in the text?', 
+            ['Smooth', 'Highs and lows', 'Consistent', 'Brief'], 
+            1, '文中明確提到: Taiwanese baseball has had its highs and lows.');
+        document.getElementById('readingQuizContainer').innerHTML = readHTML;
+    };
+</script>
+
+</body>
+</html>
