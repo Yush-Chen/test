@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Causative Verbs Master Class | 使役動詞完全攻略</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e67e22; /* Energizing Orange */
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --success: #27ae60;
+            --danger: #c0392b;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+            background-color: #f4f6f7;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        header h1 { margin: 0; font-size: 2.5rem; }
+        header p { opacity: 0.9; margin-top: 10px; font-size: 1.1rem; }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Tabs Navigation */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 25px;
+            margin: 5px;
+            border: none;
+            background-color: #fff;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Styles */
+        h2 {
+            border-left: 5px solid var(--secondary);
+            padding-left: 15px;
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        h3 { color: var(--accent); margin-top: 25px; }
+
+        .concept-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .formula {
+            font-family: "Consolas", monospace;
+            background: #2c3e50;
+            color: #f1c40f;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        .highlight { color: var(--danger); font-weight: bold; }
+        
+        .trap-box {
+            background-color: #fadbd8;
+            border: 2px dashed var(--danger);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th { background-color: var(--primary); color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+
+        /* Quiz Styles */
+        .quiz-container { margin-top: 20px; }
+        .quiz-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        .question { font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; }
+        .options label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        .options label:hover { background-color: #f0f0f0; }
+        
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .feedback.correct { background-color: #d4efdf; color: #145a32; }
+        .feedback.wrong { background-color: #fadbd8; color: #7b241c; }
+
+        .btn-check {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-check:hover { background-color: var(--accent); }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* Make Grid for Extension */
+        .make-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .make-card {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .make-title { font-weight: bold; color: var(--secondary); margin-bottom: 5px; display: block;}
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Causative Verbs Master Class</h1>
+    <p>使役動詞完全攻略：Let, Make, Have, Get</p>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('grammar')">📘 文法核心</button>
+        <button class="tab-btn" onclick="openTab('make-ext')">🔥 Make 多重宇宙</button>
+        <button class="tab-btn" onclick="openTab('basic-quiz')">⚔️ 基礎練習 (10題)</button>
+        <button class="tab-btn" onclick="openTab('adv-quiz')">💀 進階挑戰 (10題)</button>
+    </div>
+
+    <!-- Tab 1: Grammar Core -->
+    <div id="grammar" class="tab-content active">
+        <h2>使役動詞總整理</h2>
+        <p>核心概念：讓、使、叫某人做某事。不同的動詞代表不同的「強制力」與「語氣」。</p>
+
+        <h3>1. 四大天王比較</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>動詞</th>
+                    <th>主動結構 (叫人做)</th>
+                    <th>被動結構 (物品被做)</th>
+                    <th>語氣 / 關鍵字</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Make</strong></td>
+                    <td>make + 人 + <span class="highlight">VR</span></td>
+                    <td>(無此用法)</td>
+                    <td>強迫、強制 (Force)</td>
+                </tr>
+                <tr>
+                    <td><strong>Have</strong></td>
+                    <td>have + 人 + <span class="highlight">VR</span></td>
+                    <td>have + 物 + <span class="highlight">p.p.</span></td>
+                    <td>委託、交付 (Request)</td>
+                </tr>
+                <tr>
+                    <td><strong>Get</strong></td>
+                    <td>get + 人 + <span class="highlight">to V</span></td>
+                    <td>get + 物 + <span class="highlight">p.p.</span></td>
+                    <td>說服、設法 (Persuade)</td>
+                </tr>
+                <tr>
+                    <td><strong>Let</strong></td>
+                    <td>let + 人 + <span class="highlight">VR</span></td>
+                    <td>let + 物 + <span class="highlight">be p.p.</span> (少用)</td>
+                    <td>允許、放任 (Allow)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2. 常見陷阱區 (Trap Zone)</h3>
+        
+        <div class="trap-box">
+            <h4>❌ 錯誤示範：I made my car fixed.</h4>
+            <p><strong>解析：</strong>雖然中文聽起來像「我讓車子被修」，但 <code>Make</code> 不用於「物品被服務」的狀況。</p>
+            <p>✅ <strong>正確說法：</strong></p>
+            <ul>
+                <li>I <strong>had</strong> my car fixed. (請人修)</li>
+                <li>I <strong>got</strong> my car fixed. (設法修好)</li>
+            </ul>
+        </div>
+
+        <div class="trap-box" style="border-color: #3498db; background-color: #eaf2f8;">
+            <h4>⚠️ Make 的被動語態要還原 To！</h4>
+            <p>當主動語態是 <code>make + 人 + VR</code> 時，變成被動語態時，省略的 <strong>to</strong> 必須出現。</p>
+            <p>Active: The teacher made him <strong>rewrite</strong> the paper.</p>
+            <p>Passive: He was made <strong>to rewrite</strong> the paper by the teacher.</p>
+        </div>
+    </div>
+
+    <!-- Tab 2: Make Extension -->
+    <div id="make-ext" class="tab-content">
+        <h2>The Many Faces of "Make"</h2>
+        <p>Make 不只是使役動詞，它是英文裡的變形金剛！</p>
+
+        <h3>1. 情緒與狀態 (State)</h3>
+        <div class="concept-card">
+            <span class="formula">make + O + Adj.</span>
+            <p>讓某人/某物變得...</p>
+            <ul>
+                <li>You make me <strong>happy</strong>. (你讓我快樂)</li>
+                <li>The news made him <strong>angry</strong>. (這消息讓他生氣)</li>
+                <li>Please make yourself <strong>comfortable</strong>. (請自便/讓自己舒適點)</li>
+            </ul>
+        </div>
+
+        <h3>2. 創造與轉變 (Creation & Transformation)</h3>
+        <div class="concept-card">
+            <span class="formula">make + O + N.</span>
+            <p>讓某人成為... / 創造...</p>
+            <ul>
+                <li>The experience made him <strong>a better person</strong>. (這經歷讓他變成更好的人)</li>
+                <li>She made <strong>a cake</strong>. (做蛋糕)</li>
+                <li>They made <strong>a decision</strong>. (做決定 - 固定搭配)</li>
+            </ul>
+        </div>
+
+        <h3>3. 超實用片語 (Phrasal Verbs)</h3>
+        <div class="make-grid">
+            <div class="make-card">
+                <span class="make-title">Make up</span>
+                化妝 / 編造(故事) / 和好 / 彌補
+                <br><em>Example: They finally made up after the fight.</em>
+            </div>
+            <div class="make-card">
+                <span class="make-title">Make out</span>
+                辨識出 / 理解 / 親熱
+                <br><em>Example: I can't make out what he's saying.</em>
+            </div>
+            <div class="make-card">
+                <span class="make-title">Make sense</span>
+                有道理 / 講得通
+                <br><em>Example: This theory doesn't make sense.</em>
+            </div>
+            <div class="make-card">
+                <span class="make-title">Make a living</span>
+                謀生 / 賺錢過活
+                <br><em>Example: He makes a living by selling art.</em>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 3: Basic Quiz -->
+    <div id="basic-quiz" class="tab-content">
+        <h2>⚔️ 基礎修煉 (Basic Training)</h2>
+        <p>請選出最正確的動詞形式。</p>
+        <div id="basic-questions"></div>
+    </div>
+
+    <!-- Tab 4: Advanced Quiz -->
+    <div id="adv-quiz" class="tab-content">
+        <h2>💀 進階挑戰 (Advanced Challenge)</h2>
+        <p>包含被動語態還原、Make 特殊用法與陷阱題。</p>
+        <div id="adv-questions"></div>
+    </div>
+
+</div>
+
+<footer>
+    <p>Created with 💡 by Your English Tutor | Keep practicing!</p>
+</footer>
+
+<script>
+    // Tab Function
+    function openTab(tabName) {
+        var i;
+        var x = document.getElementsByClassName("tab-content");
+        var buttons = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+            x[i].classList.remove("active");
+        }
+        for (i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove("active");
+        }
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).classList.add("active");
+        
+        // Update button active state
+        const activeBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
+        if(activeBtn) activeBtn.classList.add("active");
+    }
+
+    // Quiz Data
+    const basicQuestions = [
+        { q: "My mom let me ______ video games after dinner.", options: ["play", "to play", "playing"], ans: 0, note: "Let + 人 + VR (原形)" },
+        { q: "The teacher made the students ______ the classroom.", options: ["clean", "to clean", "cleaning"], ans: 0, note: "Make + 人 + VR (原形)" },
+        { q: "I had the mechanic ______ my car.", options: ["fix", "fixed", "to fix"], ans: 0, note: "Have + 人 + VR (主動請人做)" },
+        { q: "I can't get him ______ the dishes.", options: ["wash", "to wash", "washed"], ans: 1, note: "Get + 人 + TO V (這是 Get 的特色！)" },
+        { q: "I had my hair ______ yesterday.", options: ["cut", "to cut", "cutting"], ans: 0, note: "Have + 物 + p.p. (頭髮是被剪的)" },
+        { q: "Please make yourself ______ at home.", options: ["comfortable", "comfortably", "comfort"], ans: 0, note: "Make + O + Adj. (讓...變得...)" },
+        { q: "Don't let the dog ______ out.", options: ["run", "to run", "ran"], ans: 0, note: "Let + O + VR" },
+        { q: "We finally got the project ______.", options: ["finish", "to finish", "finished"], ans: 2, note: "Get + 物 + p.p. (讓專案被完成)" },
+        { q: "Did you have your homework ______?", options: ["check", "checked", "checking"], ans: 1, note: "Have + 物 + p.p. (作業是被檢查)" },
+        { q: "Sad movies always make me ______.", options: ["cry", "to cry", "crying"], ans: 0, note: "Make + 人 + VR" }
+    ];
+
+    const advQuestions = [
+        { q: "The students were made ______ their homework.", options: ["redo", "to redo", "redoing"], ans: 1, note: "Make 的被動語態：be made TO V (陷阱題！)" },
+        { q: "I tried to ______ my car fixed, but the shop was closed.", options: ["make", "have", "let"], ans: 1, note: "Have/Get + 物 + p.p. (Make 不能這樣用)" },
+        { q: "The heavy rain made the road ______.", options: ["danger", "dangerous", "dangerously"], ans: 1, note: "Make + O + Adj. (讓路變危險)" },
+        { q: "He made ______ a story about being late.", options: ["out", "up", "for"], ans: 1, note: "Make up = 編造 (故事)" },
+        { q: "I can't make ______ what is written on the board.", options: ["out", "up", "in"], ans: 0, note: "Make out = 辨識、看清楚" },
+        { q: "Which sentence is WRONG?", options: ["I had my watch repaired.", "I got my watch repaired.", "I made my watch repaired."], ans: 2, note: "Make 不能接 p.p. 來表示物品被修理。" },
+        { q: "Does this sentence ______ sense to you?", options: ["do", "have", "make"], ans: 2, note: "Make sense = 有道理 (固定搭配)" },
+        { q: "She makes a ______ by selling handmade jewelry.", options: ["life", "live", "living"], ans: 2, note: "Make a living = 謀生" },
+        { q: "The little boy was made ______ the broken window.", options: ["pay for", "to pay for", "paid for"], ans: 1, note: "被動語態：be made TO V" }
+    ];
+
+    // Render Quiz
+    function renderQuiz(questions, containerId, prefix) {
+        const container = document.getElementById(containerId);
+        let html = "";
+        questions.forEach((item, index) => {
+            let optionsHtml = "";
+            item.options.forEach((opt, optIndex) => {
+                optionsHtml += `<label><input type="radio" name="${prefix}-q${index}" value="${optIndex}"> ${opt}</label>`;
+            });
+
+            html += `
+                <div class="quiz-item">
+                    <div class="question">${index + 1}. ${item.q}</div>
+                    <div class="options">${optionsHtml}</div>
+                    <button class="btn-check" onclick="checkAnswer('${prefix}', ${index})">Check Answer</button>
+                    <div id="${prefix}-feedback-${index}" class="feedback"></div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    function checkAnswer(prefix, index) {
+        const questions = prefix === 'basic' ? basicQuestions : advQuestions;
+        const radios = document.getElementsByName(`${prefix}-q${index}`);
+        let selected = -1;
+        for (let i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                selected = parseInt(radios[i].value);
+                break;
+            }
+        }
+
+        const feedbackEl = document.getElementById(`${prefix}-feedback-${index}`);
+        feedbackEl.style.display = "block";
+
+        if (selected === questions[index].ans) {
+            feedbackEl.className = "feedback correct";
+            feedbackEl.innerHTML = "✅ Correct! " + questions[index].note;
+        } else if (selected === -1) {
+            feedbackEl.className = "feedback";
+            feedbackEl.style.backgroundColor = "#fff3cd";
+            feedbackEl.style.color = "#856404";
+            feedbackEl.innerHTML = "⚠️ Please select an answer.";
+        } else {
+            feedbackEl.className = "feedback wrong";
+            feedbackEl.innerHTML = "❌ Try again. " + questions[index].note;
+        }
+    }
+
+    // Initialize
+    renderQuiz(basicQuestions, "basic-questions", "basic");
+    renderQuiz(advQuestions, "adv-questions", "adv");
+
+</script>
+
+</body>
+</html>

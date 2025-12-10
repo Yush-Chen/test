@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>Make 使役與多種用法互動小課堂</title>
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --accent: #ffb7c5;
+      --accent-dark: #f97373;
+      --accent-soft: #ffe4ec;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow-soft: 0 12px 25px rgba(15, 23, 42, 0.08);
+      --radius-xl: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #ffe4ec 0, #f9fafb 45%, #e0f2fe 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .wrapper {
+      max-width: 1024px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+
+    .hero {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 28px;
+      padding: 20px 20px 18px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "🦊✨";
+      position: absolute;
+      font-size: 48px;
+      right: 24px;
+      top: 18px;
+      opacity: 0.2;
+      transform: rotate(-12deg);
+    }
+
+    .hero-main h1 {
+      margin: 0 0 6px;
+      font-size: 1.7rem;
+    }
+
+    .hero-main p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.96rem;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-soft);
+      color: #b91c1c;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .hero-tag span {
+      font-size: 1rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1.4fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero {
+        padding-right: 16px;
+      }
+      .hero::before {
+        display: none;
+      }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: var(--radius-xl);
+      padding: 16px 18px 18px;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      padding: 1px 8px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      margin-right: 6px;
+    }
+
+    .pill.green {
+      background: #ecfdf3;
+      color: #15803d;
+    }
+
+    .pill.orange {
+      background: #fff7ed;
+      color: #c05621;
+    }
+
+    .pill.pink {
+      background: #fdf2ff;
+      color: #c026d3;
+    }
+
+    .pill-row {
+      margin-top: 6px;
+    }
+
+    .example {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 8px 9px;
+      margin: 6px 0 4px;
+      border: 1px dashed #e5e7eb;
+      font-size: 0.92rem;
+    }
+
+    .example .en {
+      font-weight: 600;
+    }
+
+    .example .zh {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .key {
+      background: #fefce8;
+      border-left: 3px solid #facc15;
+      padding: 6px 9px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin: 6px 0;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+
+    li {
+      margin-bottom: 2px;
+      font-size: 0.94rem;
+    }
+
+    .mini-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #9ca3af;
+      margin-bottom: 2px;
+    }
+
+    /* Tabs for practice */
+    .tabs {
+      display: flex;
+      background: #f3f4f6;
+      border-radius: 999px;
+      padding: 3px;
+      gap: 4px;
+      margin-bottom: 10px;
+      margin-top: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      padding: 6px 4px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .tab-btn.active {
+      background: white;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.15);
+      color: #b91c1c;
+      font-weight: 600;
+    }
+
+    .tab-btn span.icon {
+      font-size: 1rem;
+    }
+
+    .practice-section {
+      display: none;
+      margin-top: 4px;
+    }
+
+    .practice-section.active {
+      display: block;
+    }
+
+    .question {
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      background: #f9fafb;
+      position: relative;
+    }
+
+    .q-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .q-text {
+      font-size: 0.94rem;
+      margin-bottom: 4px;
+    }
+
+    .q-hint {
+      font-size: 0.82rem;
+      color: #6b7280;
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+
+    .answer {
+      font-size: 0.9rem;
+      background: #ecfdf3;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px 3px;
+      margin-top: 2px;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+      display: none;
+    }
+
+    .answer span.tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.8;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      padding: 3px 9px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: #f9fafb;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+      transform: translateY(-0.5px);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: white;
+      border-color: transparent;
+    }
+
+    .btn.primary:hover {
+      box-shadow: 0 3px 9px rgba(248, 113, 113, 0.5);
+    }
+
+    .btn-compact {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+    }
+
+    .controls-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .controls-row .btn {
+      font-size: 0.78rem;
+      padding-inline: 10px;
+    }
+
+    .badge {
+      font-size: 0.76rem;
+      padding: 1px 7px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      display: inline-block;
+      margin-left: 4px;
+    }
+
+    .side-note {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .side-note strong {
+      color: #b91c1c;
+    }
+
+    .list-compact li {
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+
+    .hr-soft {
+      border: none;
+      border-top: 1px dashed #e5e7eb;
+      margin: 10px 0;
+    }
+
+    .footnote {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header class="hero">
+      <div class="hero-main">
+        <div class="hero-tag">
+          <span>🦊</span> make 用法總整理 & 互動練習
+        </div>
+        <h1>Make 的使役＆進階用法小教室</h1>
+        <p>從「逼他做事」到「造成影響」：一次搞懂 make 的 7 種常見用法，搭配互動練習，讓學生邊玩邊學。</p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- Left: Explanation + Practice -->
+      <section class="card">
+        <h2>📘 文法講解：Make 的主要用法</h2>
+
+        <h3>1️⃣ 使役用法：make + 人 + 原形動詞 <span class="badge">核心</span></h3>
+        <div class="mini-title">句型</div>
+        <div class="key">
+          <strong>make + 人 + 原形動詞</strong>：讓 / 迫使某人「做」某事（帶有「不由自主、被影響」的感覺）
+        </div>
+        <div class="example">
+          <div class="en">The teacher <strong>made us rewrite</strong> the essay.</div>
+          <div class="zh">老師要我們重寫那篇作文。</div>
+        </div>
+        <div class="example">
+          <div class="en">The movie <strong>made me cry</strong>.</div>
+          <div class="zh">那部電影讓我哭了。</div>
+        </div>
+        <ul>
+          <li>跟 have / get 不同：<strong>make 後面一定是「人」+ 原形動詞</strong>，不用 to。</li>
+          <li>語氣比 let 強很多，比 have 稍微強一點，常有「逼、迫使」的味道。</li>
+        </ul>
+
+        <div class="key">
+          ⚠️ <strong>錯誤示範：</strong>❌ I made my car fixed.  
+          車不是人，不能自己去修 → 要說：
+          <br />✅ I had / got my car fixed.
+        </div>
+
+        <h3>2️⃣ 被動：be made <span style="font-size:0.9rem;">+ to V</span>（唯一會多出 to 的地方）</h3>
+        <div class="mini-title">句型</div>
+        <div class="key">
+          <strong>be made to + 原形動詞</strong>：被迫做某事（make 的被動特例）
+        </div>
+        <div class="example">
+          <div class="en">We were <strong>made to stand</strong> outside the classroom.</div>
+          <div class="zh">我們被迫站在教室外。</div>
+        </div>
+        <div class="example">
+          <div class="en">He was <strong>made to apologize</strong> to his classmates.</div>
+          <div class="zh">他被迫向同學道歉。</div>
+        </div>
+        <ul>
+          <li>主動：make + 人 + 原 V</li>
+          <li>被動：be made + <strong>to</strong> + 原 V（to 一定會出現！）</li>
+        </ul>
+
+        <h3>3️⃣ make + 人 + 形容詞：讓某人變得怎樣</h3>
+        <div class="key">
+          表示「<strong>讓某人感到／變得……</strong>」，常搭配情緒形容詞。
+        </div>
+        <div class="example">
+          <div class="en">You <strong>make me happy</strong>.</div>
+          <div class="zh">你讓我很開心。</div>
+        </div>
+        <div class="example">
+          <div class="en">The news <strong>made her angry</strong>.</div>
+          <div class="zh">那個消息讓她生氣。</div>
+        </div>
+        <ul>
+          <li>也可以是形容詞片語：make me feel better / make people relaxed</li>
+          <li>寫作時，比 be 動詞更有「變化」和「力量」。</li>
+        </ul>
+
+        <h3>4️⃣ make + 人 + 名詞：讓某人成為… / 使…變成…</h3>
+        <div class="key">
+          表示「<strong>使 A 成為 B</strong>」，是結果導向的用法。
+        </div>
+        <div class="example">
+          <div class="en">His actions <strong>made him a hero</strong>.</div>
+          <div class="zh">他的行動讓他成為英雄。</div>
+        </div>
+        <div class="example">
+          <div class="en">This experience <strong>made me a stronger person</strong>.</div>
+          <div class="zh">這段經歷讓我成為更堅強的人。</div>
+        </div>
+
+        <h3>5️⃣ make + 名詞：做出某物（具體或抽象）</h3>
+        <p class="tagline">這是「做、製造」的基本用法，也延伸成一堆常見搭配。</p>
+        <div class="example">
+          <div class="en">She <strong>made a cake</strong> for her friend.</div>
+          <div class="zh">她為朋友做了一個蛋糕。</div>
+        </div>
+        <div class="example">
+          <div class="en">He <strong>made a mistake</strong> in the report.</div>
+          <div class="zh">他在報告裡犯了一個錯。</div>
+        </div>
+        <div class="example">
+          <div class="en">They <strong>made a decision</strong> to move abroad.</div>
+          <div class="zh">他們做出了移居國外的決定。</div>
+        </div>
+        <ul>
+          <li>犯錯不是 do a mistake，而是 <strong>make a mistake</strong>。</li>
+          <li>做決定是 <strong>make a decision</strong>，不是 do decision。</li>
+        </ul>
+
+        <h3>6️⃣ 常見固定搭配（考試＆寫作超好用）</h3>
+        <div class="pill-row">
+          <span class="pill">make a decision</span>
+          <span class="pill">make a mistake</span>
+          <span class="pill">make friends</span>
+          <span class="pill">make money</span>
+        </div>
+        <div class="pill-row">
+          <span class="pill green">make progress</span>
+          <span class="pill orange">make an effort</span>
+          <span class="pill pink">make a difference</span>
+        </div>
+        <ul class="list-compact">
+          <li><strong>make sure</strong>：確定、務必  
+            <span style="color:#6b7280;">Please make sure you lock the door.</span>
+          </li>
+          <li><strong>make sense</strong>：有道理  
+            <span style="color:#6b7280;">That doesn’t make any sense.</span>
+          </li>
+          <li><strong>make a living</strong>：謀生  
+            <span style="color:#6b7280;">He makes a living by teaching English.</span>
+          </li>
+          <li><strong>make time</strong>：撥出時間  
+            <span style="color:#6b7280;">You should make time for exercise.</span>
+          </li>
+          <li><strong>make an appointment</strong>：預約</li>
+          <li><strong>make an excuse</strong>：找藉口</li>
+          <li><strong>make a wish</strong>：許願</li>
+        </ul>
+
+        <h3>7️⃣ 片語動詞：make up / make out / make for / make do</h3>
+        <div class="mini-title">make up</div>
+        <ul class="list-compact">
+          <li>化妝：She never <strong>makes up</strong>.（她平常不化妝。）</li>
+          <li>編造：He <strong>made up</strong> a funny story.（他編了一個有趣的故事。）</li>
+          <li>和好：They quarrel a lot but always <strong>make up</strong> in the end.</li>
+          <li>補回：Can I <strong>make up</strong> the test next week?</li>
+        </ul>
+
+        <div class="mini-title">make out</div>
+        <ul class="list-compact">
+          <li>勉強看懂 / 聽懂：I can’t <strong>make out</strong> his handwriting.</li>
+          <li>假裝：He <strong>made out</strong> that he knew everything.</li>
+        </ul>
+
+        <div class="mini-title">make for</div>
+        <ul class="list-compact">
+          <li>朝…前進：This road <strong>makes for</strong> the city center.</li>
+          <li>有助於：Good habits <strong>make for</strong> a healthy life.</li>
+        </ul>
+
+        <div class="mini-title">make do (with)</div>
+        <ul class="list-compact">
+          <li>將就使用：We’ll have to <strong>make do</strong> with what we have.</li>
+        </ul>
+
+        <hr class="hr-soft" />
+        <p class="footnote">
+          小結：<strong>make = 造成、讓…變成</strong>。不管是讓人做事、讓人變得怎樣，還是製造結果，核心都是「把某個結果做出來」。
+        </p>
+      </section>
+
+      <!-- Right: Practice -->
+      <section class="card">
+        <h2>📝 練習區：Make 用法互動題</h2>
+
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="basic">
+            <span class="icon">🌱</span>基礎題
+          </button>
+          <button class="tab-btn" data-tab="advanced">
+            <span class="icon">🚀</span>進階題
+          </button>
+        </div>
+
+        <div class="controls-row">
+          <button class="btn" id="showAllBtn">顯示全部答案</button>
+          <button class="btn" id="hideAllBtn">隱藏全部答案</button>
+        </div>
+
+        <!-- Basic Practice -->
+        <div class="practice-section active" id="basic">
+          <!-- 1 -->
+          <div class="question">
+            <div class="q-label">基礎 1</div>
+            <div class="q-text">
+              改寫句子，使用 <strong>make + 人 + 原形動詞</strong>：<br />
+              The teacher asked us to clean the classroom.<br />
+              ➜ The teacher ______ us ______ the classroom.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="a1">顯示答案</button>
+            <div class="answer" id="a1">
+              <span class="tag">Ans.</span>
+              The teacher <strong>made</strong> us <strong>clean</strong> the classroom.
+            </div>
+          </div>
+
+          <!-- 2 -->
+          <div class="question">
+            <div class="q-label">基礎 2</div>
+            <div class="q-text">
+              翻譯：這部電影讓我哭了。<br />
+              ➜ The movie __________________________.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="a2">顯示答案</button>
+            <div class="answer" id="a2">
+              <span class="tag">Ans.</span>
+              The movie <strong>made me cry</strong>.
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="question">
+            <div class="q-label">基礎 3</div>
+            <div class="q-text">
+              選擇正確句子：<br />
+              A. The news made me to cry.<br />
+              B. The news made me cry.<br />
+              C. The news made me cried.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="a3">顯示答案</button>
+            <div class="answer" id="a3">
+              <span class="tag">Ans.</span>
+              B. <strong>The news made me cry.</strong>
+            </div>
+          </div>
+
+          <!-- 4 -->
+          <div class="question">
+            <div class="q-label">基礎 4</div>
+            <div class="q-text">
+              改寫為被動句，使用 <strong>be made to</strong>：<br />
+              The coach made us run for two hours.<br />
+              ➜ We _______________________________.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="a4">顯示答案</button>
+            <div class="answer" id="a4">
+              <span class="tag">Ans.</span>
+              We were <strong>made to run</strong> for two hours.
+            </div>
+          </div>
+
+          <!-- 5 -->
+          <div class="question">
+            <div class="q-label">基礎 5</div>
+            <div class="q-text">
+              翻譯：他的笑話總是讓大家很開心。<br />
+              ➜ His jokes __________________________.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="a5">顯示答案</button>
+            <div class="answer" id="a5">
+              <span class="tag">Ans.</span>
+              His jokes <strong>make people happy</strong>. / His jokes <strong>always make everyone laugh</strong>.
+            </div>
+          </div>
+
+          <!-- 6 -->
+          <div class="question">
+            <div class="q-label">基礎 6</div>
+            <div class="q-text">
+              選擇正確搭配：<br />
+              ( ) a mistake<br />
+              A. do　B. make　C. have
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="a6">顯示答案</button>
+            <div class="answer" id="a6">
+              <span class="tag">Ans.</span>
+              B. <strong>make</strong> a mistake
+            </div>
+          </div>
+
+          <!-- 7 -->
+          <div class="question">
+            <div class="q-label">基礎 7</div>
+            <div class="q-text">
+              完成句子：<br />
+              Good sleep and exercise can ___________ a big difference in your health.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="a7">顯示答案</button>
+            <div class="answer" id="a7">
+              <span class="tag">Ans.</span>
+              Good sleep and exercise can <strong>make</strong> a big difference in your health.
+            </div>
+          </div>
+
+          <!-- 8 -->
+          <div class="question">
+            <div class="q-label">基礎 8</div>
+            <div class="q-text">
+              翻譯：那張照片讓我看起來很老。<br />
+              ➜ The photo __________________________.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="a8">顯示答案</button>
+            <div class="answer" id="a8">
+              <span class="tag">Ans.</span>
+              The photo <strong>makes me look old</strong>.
+            </div>
+          </div>
+
+          <!-- 9 -->
+          <div class="question">
+            <div class="q-label">基礎 9</div>
+            <div class="q-text">
+              填入適當字：<br />
+              Please ________ sure you turn off the lights before you leave.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="a9">顯示答案</button>
+            <div class="answer" id="a9">
+              <span class="tag">Ans.</span>
+              Please <strong>make</strong> sure you turn off the lights before you leave.
+            </div>
+          </div>
+
+          <!-- 10 -->
+          <div class="question">
+            <div class="q-label">基礎 10</div>
+            <div class="q-text">
+              選擇正確句子：<br />
+              A. She made up a beautiful today.<br />
+              B. She made up a beautiful story.<br />
+              C. She made up beautiful.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="a10">顯示答案</button>
+            <div class="answer" id="a10">
+              <span class="tag">Ans.</span>
+              B. <strong>She made up a beautiful story.</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Advanced Practice -->
+        <div class="practice-section" id="advanced">
+          <!-- 1 -->
+          <div class="question">
+            <div class="q-label">進階 1</div>
+            <div class="q-text">
+              翻譯並使用 <strong>make + 人 + 名詞</strong>：<br />
+              這次的失敗讓他成為一個更謙虛的人。<br />
+              ➜ This failure ________________________________.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="b1">顯示答案</button>
+            <div class="answer" id="b1">
+              <span class="tag">Ans.</span>
+              This failure <strong>made him a more humble person</strong>.
+            </div>
+          </div>
+
+          <!-- 2 -->
+          <div class="question">
+            <div class="q-label">進階 2</div>
+            <div class="q-text">
+              句型轉換，保留意思不變：<br />
+              The coach made the players practice harder.<br />
+              ➜ The players __________________________ harder by the coach.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="b2">顯示答案</button>
+            <div class="answer" id="b2">
+              <span class="tag">Ans.</span>
+              The players were <strong>made to practice</strong> harder by the coach.
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="question">
+            <div class="q-label">進階 3</div>
+            <div class="q-text">
+              錯誤修正：<br />
+              ✖ The story made me to think about my life.<br />
+              ➜ ___________________________________________.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="b3">顯示答案</button>
+            <div class="answer" id="b3">
+              <span class="tag">Ans.</span>
+              The story <strong>made me think</strong> about my life.
+            </div>
+          </div>
+
+          <!-- 4 -->
+          <div class="question">
+            <div class="q-label">進階 4</div>
+            <div class="q-text">
+              選擇最自然的句子：<br />
+              A. The news made me sad.<br />
+              B. The news made me to be sad.<br />
+              C. The news made me being sad.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="b4">顯示答案</button>
+            <div class="answer" id="b4">
+              <span class="tag">Ans.</span>
+              A. <strong>The news made me sad.</strong>
+            </div>
+          </div>
+
+          <!-- 5 -->
+          <div class="question">
+            <div class="q-label">進階 5</div>
+            <div class="q-text">
+              翻譯：他的選擇讓他成為今天的他。<br />
+              ➜ His choices _____________________________________.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="b5">顯示答案</button>
+            <div class="answer" id="b5">
+              <span class="tag">Ans.</span>
+              His choices <strong>made him who he is today</strong>. / His choices <strong>made him the person he is today</strong>.
+            </div>
+          </div>
+
+          <!-- 6 -->
+          <div class="question">
+            <div class="q-label">進階 6</div>
+            <div class="q-text">
+              填入適當字並注意時態：<br />
+              Her smile can ________ anyone feel better.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="b6">顯示答案</button>
+            <div class="answer" id="b6">
+              <span class="tag">Ans.</span>
+              Her smile can <strong>make</strong> anyone feel better.
+            </div>
+          </div>
+
+          <!-- 7 -->
+          <div class="question">
+            <div class="q-label">進階 7</div>
+            <div class="q-text">
+              選擇正確的片語：<br />
+              We don’t have much money, so we’ll have to __________ with what we have.<br />
+              A. make out　B. make for　C. make do
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="b7">顯示答案</button>
+            <div class="answer" id="b7">
+              <span class="tag">Ans.</span>
+              C. <strong>make do</strong> with what we have.
+            </div>
+          </div>
+
+          <!-- 8 -->
+          <div class="question">
+            <div class="q-label">進階 8</div>
+            <div class="q-text">
+              翻譯：他的謊言引起了很多麻煩。<br />
+              ➜ His lies ________________________________________.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="b8">顯示答案</button>
+            <div class="answer" id="b8">
+              <span class="tag">Ans.</span>
+              His lies <strong>made a lot of trouble</strong>. / His lies <strong>made trouble</strong>.
+            </div>
+          </div>
+
+          <!-- 9 -->
+          <div class="question">
+            <div class="q-label">進階 9</div>
+            <div class="q-text">
+              句型重組（請將單字排成一句通順的句子）：<br />
+              <em>up / story / she / a / made / interesting</em><br />
+              ➜ ______________________________________.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="b9">顯示答案</button>
+            <div class="answer" id="b9">
+              <span class="tag">Ans.</span>
+              She <strong>made up an interesting story</strong>.
+            </div>
+          </div>
+
+          <!-- 10 -->
+          <div class="question">
+            <div class="q-label">進階 10</div>
+            <div class="q-text">
+              判斷這兩句的語氣差別，並翻譯：<br />
+              (1) My parents <strong>made me study</strong> abroad.<br />
+              (2) My parents <strong>let me study</strong> abroad.
+            </div>
+            <button class="btn btn-compact" data-answer-toggle="b10">顯示答案</button>
+            <div class="answer" id="b10">
+              <span class="tag">Ans.</span>
+              (1) My parents made me study abroad.<br />
+              → 我爸媽<strong>逼我／讓我不得不</strong>出國念書。（有強迫感）<br />
+              (2) My parents let me study abroad.<br />
+              → 我爸媽<strong>允許我</strong>出國念書。（給自由、同意）
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Tab switching
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const practiceSections = document.querySelectorAll(".practice-section");
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.tab;
+
+        tabButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        practiceSections.forEach((sec) => {
+          if (sec.id === target) {
+            sec.classList.add("active");
+          } else {
+            sec.classList.remove("active");
+          }
+        });
+      });
+    });
+
+    // Individual answer toggles
+    const answerButtons = document.querySelectorAll("[data-answer-toggle]");
+    answerButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.answerToggle;
+        const ans = document.getElementById(id);
+        if (!ans) return;
+        const isHidden = getComputedStyle(ans).display === "none";
+        ans.style.display = isHidden ? "inline-flex" : "none";
+        btn.textContent = isHidden ? "隱藏答案" : "顯示答案";
+      });
+    });
+
+    // Show / hide all answers
+    const showAllBtn = document.getElementById("showAllBtn");
+    const hideAllBtn = document.getElementById("hideAllBtn");
+
+    showAllBtn.addEventListener("click", () => {
+      document.querySelectorAll(".answer").forEach((ans) => {
+        ans.style.display = "inline-flex";
+      });
+      document.querySelectorAll("[data-answer-toggle]").forEach((btn) => {
+        btn.textContent = "隱藏答案";
+      });
+    });
+
+    hideAllBtn.addEventListener("click", () => {
+      document.querySelectorAll(".answer").forEach((ans) => {
+        ans.style.display = "none";
+      });
+      document.querySelectorAll("[data-answer-toggle]").forEach((btn) => {
+        btn.textContent = "顯示答案";
+      });
+    });
+  </script>
+</body>
+</html>

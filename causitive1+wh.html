@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 7: From Trash to Triumph - Grammar Station</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --highlight-color: #f1c40f;
+            --danger-color: #e74c3c;
+            --light-bg: #ecf0f1;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft JhengHei", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: var(--white);
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Sections */
+        section {
+            background: var(--white);
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        h3 {
+            color: var(--accent-color);
+            margin-top: 20px;
+        }
+
+        /* Grammar Cards */
+        .grammar-box {
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--accent-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .formula {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e8f6f3;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #16a085;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        /* Trap Box */
+        .trap-box {
+            background-color: #fadbd8;
+            border: 2px dashed var(--danger-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .trap-title {
+            color: var(--danger-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Interactive Quiz */
+        .quiz-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .quiz-item:last-child {
+            border-bottom: none;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .reveal-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .reveal-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .answer-key {
+            display: none; /* Hidden by default */
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e8f8f5;
+            border-left: 4px solid #2ecc71;
+            color: #27ae60;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .highlight {
+            background-color: var(--highlight-color);
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .container { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Lesson 7 Grammar Station</h1>
+    <p>From Trash to Triumph 🎻</p>
+</header>
+
+<div class="container">
+
+    <!-- Welcome Message -->
+    <section>
+        <h2>👋 Welcome!</h2>
+        <p>歡迎來到第七課文法充電站！這一課我們將學習如何「讓事情被完成」以及如何「簡化句子」。準備好了嗎？Let's dive in!</p>
+    </section>
+
+    <!-- Topic 1 -->
+    <section id="topic1">
+        <h2>📌 Topic 1: Causative "Have"</h2>
+        <h3>1. 核心觀念 (Concept)</h3>
+        <p>當我們「不是自己做」，而是「安排、委託、請別人做某事」時，使用此句型。重點在於受詞（Object）與動作是<strong>被動關係</strong>。</p>
+        
+        <div class="formula">
+            S + have + O + p.p. (過去分詞)
+        </div>
+        
+        <div class="grammar-box">
+            <strong>課文例句：</strong><br>
+            With the money they earned, Ada and her friends <span class="highlight">had larger, safer houses built</span> for their families.<br>
+            (Ada 和朋友們讓人為家人建造了更大、更安全的房子。)<br>
+            👉 房子 (houses) 是 <strong>被建造 (built)</strong> 的。
+        </div>
+
+        <h3>2. 超級比一比 (Comparison)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>動詞</th>
+                    <th>主動用法 (請某人做...)</th>
+                    <th>被動用法 (讓某物被...)</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>have</strong></td>
+                    <td>have + 人 + <strong>VR (原形)</strong></td>
+                    <td>have + 物 + <strong>p.p.</strong></td>
+                    <td>本課重點！</td>
+                </tr>
+                <tr>
+                    <td><strong>make</strong></td>
+                    <td>make + 人 + <strong>VR (原形)</strong></td>
+                    <td>make + 物 + <strong>p.p.</strong></td>
+                    <td>帶有強迫語氣</td>
+                </tr>
+                <tr>
+                    <td><strong>get</strong></td>
+                    <td>get + 人 + <strong>to V</strong></td>
+                    <td>get + 物 + <strong>p.p.</strong></td>
+                    <td>主動時要加 to</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Topic 2 -->
+    <section id="topic2">
+        <h2>📌 Topic 2: Wh- word + to V</h2>
+        <h3>1. 核心觀念 (Concept)</h3>
+        <p>這是一種「簡化句子」的技巧。將名詞子句簡化為不定詞片語。</p>
+        
+        <div class="formula">
+            Wh- word + to V
+        </div>
+        <p><small>(Wh- words: what, where, when, how, whether, who, which...)</small></p>
+
+        <div class="grammar-box">
+            <strong>邏輯轉換：</strong><br>
+            Original: I don't know <strong>what I should do</strong>.<br>
+            Simplified: I don't know <strong>what to do</strong>.
+        </div>
+
+        <div class="trap-box">
+            <div class="trap-title">⚠️ 老師的陷阱警示 (Warning)</div>
+            <p>考試超愛考！只有 <strong>WHY</strong> 不能接 to V！</p>
+            <p>❌ I don't know <strong>why to do</strong> it.</p>
+            <p>✅ I don't know <strong>why I should do</strong> it.</p>
+        </div>
+    </section>
+
+    <!-- Interactive Exercises -->
+    <section id="practice">
+        <h2>⚔️ 互動練習區 (Interactive Practice)</h2>
+        <p>請試著回答下列問題，點擊按鈕查看解析。</p>
+
+        <!-- Part A -->
+        <h3>Part A: S + have + O + p.p.</h3>
+        
+        <div class="quiz-item">
+            <div class="question">1. I didn't cut my hair myself. I ______ at the barbershop.</div>
+            <div class="options">
+                <label><input type="radio" name="q1"> (A) had cut it</label>
+                <label><input type="radio" name="q1"> (B) had it cut</label>
+                <label><input type="radio" name="q1"> (C) had it cutting</label>
+            </div>
+            <button class="reveal-btn" onclick="toggleAnswer('ans1')">👀 看解答</button>
+            <div id="ans1" class="answer-key">
+                <strong>答案：(B)</strong><br>
+                解析：have + 受詞(it/hair) + p.p.(cut)。表示頭髮是被剪的。
+            </div>
+        </div>
+
+        <div class="quiz-item">
+            <div class="question">2. The teacher had the difficult math problem ______ by the smartest student.</div>
+            <div class="options">
+                <label><input type="radio" name="q2"> (A) solve</label>
+                <label><input type="radio" name="q2"> (B) to solve</label>
+                <label><input type="radio" name="q2"> (C) solved</label>
+            </div>
+            <button class="reveal-btn" onclick="toggleAnswer('ans2')">👀 看解答</button>
+            <div id="ans2" class="answer-key">
+                <strong>答案：(C)</strong><br>
+                解析：問題 (problem) 是被解決的，故用 p.p. (solved)。
+            </div>
+        </div>
+
+        <div class="quiz-item">
+            <div class="question">3. Please get your brother ______ his room before he goes out. (注意動詞！)</div>
+            <div class="options">
+                <label><input type="radio" name="q3"> (A) clean</label>
+                <label><input type="radio" name="q3"> (B) to clean</label>
+                <label><input type="radio" name="q3"> (C) cleaned</label>
+            </div>
+            <button class="reveal-btn" onclick="toggleAnswer('ans3')">👀 看解答</button>
+            <div id="ans3" class="answer-key">
+                <strong>答案：(B)</strong><br>
+                解析：Get 接「人」做受詞時，主動語態要加 to (get + 人 + to V)。
+            </div>
+        </div>
+
+        <div class="quiz-item">
+            <div class="question">4. 重組句子： camera / I / fixed / had / my / yesterday / .</div>
+            <input type="text" placeholder="Your answer here..." style="width: 100%; padding: 8px; margin-top: 5px;">
+            <button class="reveal-btn" onclick="toggleAnswer('ans4')">👀 看解答</button>
+            <div id="ans4" class="answer-key">
+                <strong>答案：I had my camera fixed yesterday.</strong><br>
+                解析：我(昨天)請人修好了我的相機。
+            </div>
+        </div>
+
+        <!-- Part B -->
+        <h3>Part B: Wh- word + to V</h3>
+
+        <div class="quiz-item">
+            <div class="question">5. Do you know ______ the guitar?</div>
+            <div class="options">
+                <label><input type="radio" name="q5"> (A) how playing</label>
+                <label><input type="radio" name="q5"> (B) what to play</label>
+                <label><input type="radio" name="q5"> (C) how to play</label>
+            </div>
+            <button class="reveal-btn" onclick="toggleAnswer('ans5')">👀 看解答</button>
+            <div id="ans5" class="answer-key">
+                <strong>答案：(C)</strong><br>
+                解析：how to play = 如何彈奏。
+            </div>
+        </div>
+
+        <div class="quiz-item">
+            <div class="question">6. Rewrite: She hasn't decided where she should go for vacation.</div>
+            <div class="question" style="font-weight: normal;">→ She hasn't decided _________________ for vacation.</div>
+            <button class="reveal-btn" onclick="toggleAnswer('ans6')">👀 看解答</button>
+            <div id="ans6" class="answer-key">
+                <strong>答案：where to go</strong><br>
+                解析：省略相同主詞 she 與助動詞 should，改成 to V。
+            </div>
+        </div>
+
+        <div class="quiz-item">
+            <div class="question">7. 選出錯誤的句子 (Find the WRONG sentence):</div>
+            <div class="options">
+                <label><input type="radio" name="q7"> (A) Tell me when to start.</label>
+                <label><input type="radio" name="q7"> (B) Please explain why to do this.</label>
+                <label><input type="radio" name="q7"> (C) I am not sure whether to go.</label>
+            </div>
+            <button class="reveal-btn" onclick="toggleAnswer('ans7')">👀 看解答</button>
+            <div id="ans7" class="answer-key">
+                <strong>答案：(B)</strong><br>
+                解析：Why 不能接不定詞 to V！應改為 why we should do this。
+            </div>
+        </div>
+
+        <!-- Part C -->
+        <h3>Part C: Challenge (綜合挑戰)</h3>
+
+        <div class="quiz-item">
+            <div class="question">8. 翻譯：Ada 想要把這把舊小提琴修好。(提示：want + have句型)</div>
+            <input type="text" placeholder="Translation..." style="width: 100%; padding: 8px; margin-top: 5px;">
+            <button class="reveal-btn" onclick="toggleAnswer('ans8')">👀 看解答</button>
+            <div id="ans8" class="answer-key">
+                <strong>答案：Ada wanted to have the old violin repaired (or fixed).</strong><br>
+                解析：Want to do something → Want to + have + O + p.p.
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>👨‍🏫 Teacher's Note: 做得好！繼續保持這份 determination (決心)，你也能創造出屬於你的 triumph (勝利)！ 🎻✨</p>
+        <p>&copy; 2023 High School English Tutor</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleAnswer(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none" || x.style.display === "") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
