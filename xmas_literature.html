@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The True Spirit of Christmas: Insights from Literature</title>
+    <style>
+        :root {
+            /* Theme: Winter / Ice Blue based on the magazine image */
+            --primary-color: #0277bd; /* Deep Blue */
+            --secondary-color: #00acc1; /* Cyan/Teal */
+            --accent-color: #ff6f00; /* Warm Orange for contrast */
+            --bg-color: #f0f8ff; /* Alice Blue */
+            --text-color: #37474f;
+            --card-bg: #fff;
+            --border-color: #b0bec5;
+            --highlight: #e1f5fe;
+            --ref-word-color: #546e7a;
+            --correct: #2e7d32;
+            --wrong: #c62828;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4fc3f7;
+            --secondary-color: #80deea;
+            --accent-color: #ffb74d;
+            --bg-color: #102027;
+            --text-color: #eceff1;
+            --card-bg: #263238;
+            --border-color: #455a64;
+            --highlight: #01579b;
+            --ref-word-color: #b0bec5;
+        }
+
+        body {
+            font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        header {
+            background: linear-gradient(135deg, #01579b, #006064);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 { margin: 0; font-size: 1.8rem; }
+        header p { margin-top: 5px; opacity: 0.9; }
+
+        .controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        button.icon-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+
+        button.icon-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Tabs */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            background: var(--card-bg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-color);
+            border-bottom: 4px solid transparent;
+            transition: 0.3s;
+        }
+
+        .tab:hover {
+            background-color: rgba(0,0,0,0.03);
+            color: var(--primary-color);
+        }
+
+        .tab.active {
+            border-bottom: 4px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: none;
+            padding-bottom: 50px;
+        }
+
+        .content.active {
+            display: block;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Article Styles */
+        .article-text {
+            font-size: 1.15rem;
+            text-align: justify;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .article-text p { margin-bottom: 1.5em; }
+
+        .vocab-highlight {
+            font-weight: bold;
+            color: var(--primary-color);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .ref-word {
+            font-size: 0.9em;
+            color: var(--ref-word-color);
+            background-color: rgba(0,0,0,0.04);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
+        .phrase-highlight {
+            color: var(--secondary-color);
+            font-weight: bold;
+            border-bottom: 2px dashed var(--secondary-color);
+        }
+
+        /* Vocab Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: rgba(0,0,0,0.02);
+        }
+
+        /* Grammar Section */
+        .grammar-point {
+            background: var(--card-bg);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 6px solid var(--secondary-color);
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .grammar-title {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .example {
+            font-style: italic;
+            color: var(--text-color);
+            margin-top: 8px;
+            padding-left: 15px;
+            border-left: 3px solid var(--border-color);
+        }
+
+        .idiom-box {
+            background: linear-gradient(to right, #e3f2fd, #fff);
+            border: 2px solid #90caf9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        [data-theme="dark"] .idiom-box {
+             background: linear-gradient(to right, #1a2e39, #263238);
+             border-color: #37474f;
+        }
+
+        .idiom-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        
+        .idiom-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .word-builder {
+            background-color: rgba(0, 172, 193, 0.1);
+            border: 1px solid var(--secondary-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* Quiz Styles */
+        .quiz-container {
+            background: var(--card-bg);
+            padding: 30px;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .question-box {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: rgba(0,0,0,0.03);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .options label:hover {
+            background: rgba(0,0,0,0.06);
+            border-color: var(--border-color);
+        }
+
+        .options input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .feedback.correct {
+            background-color: rgba(46, 125, 50, 0.1);
+            color: var(--correct);
+            border: 1px solid var(--correct);
+            display: block;
+        }
+
+        .feedback.wrong {
+            background-color: rgba(198, 40, 40, 0.1);
+            color: var(--wrong);
+            border: 1px solid var(--wrong);
+            display: block;
+        }
+        
+        [data-theme="dark"] .feedback.correct { color: #81c784; border-color: #2e7d32; }
+        [data-theme="dark"] .feedback.wrong { color: #e57373; border-color: #c62828; }
+
+        .btn-check {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        h2 { 
+            border-bottom: 3px solid var(--secondary-color); 
+            padding-bottom: 8px; 
+            margin-top: 40px; 
+            color: var(--primary-color);
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .article-text { padding: 20px; font-size: 1rem; }
+            .tab { padding: 12px 15px; font-size: 0.9rem; }
+            th, td { font-size: 0.9rem; padding: 10px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The True Spirit of Christmas</h1>
+    <p>Unit 12: Insights from Literature (文學作品中的聖誕精神)</p>
+    <div class="controls">
+        <button class="icon-btn" onclick="toggleTheme()">🌗 Mode</button>
+        <button class="icon-btn" onclick="adjustFont(1)">A+</button>
+        <button class="icon-btn" onclick="adjustFont(-1)">A-</button>
+    </div>
+</header>
+
+<div class="tab-container">
+    <div class="tab active" onclick="switchTab('tab1')">文章全文</div>
+    <div class="tab" onclick="switchTab('tab2')">單字與測驗</div>
+    <div class="tab" onclick="switchTab('tab3')">文法與句型</div>
+    <div class="tab" onclick="switchTab('tab4')">綜合練習題</div>
+</div>
+
+<!-- TAB 1: 文章全文 -->
+<div id="tab1" class="content active">
+    <div class="article-text" id="articleContent">
+        <p>As an old song says, Christmas is "the most wonderful time of the year." People look forward to opening presents, watching festive movies, and feasting on roast turkey. Yet for many people, the true spirit of Christmas goes much deeper than these activities. For centuries, writers have explored what Christmas truly represents and why that spirit matters.</p>
+
+        <p>The British author C. S. Lewis disliked the overly commercial aspects of modern Christmas. As a <strong class="vocab-highlight">devoted</strong> Christian, he believed that buying and exchanging too many cards and gifts <span class="phrase-highlight">took away from</span> the holiday's original meaning—celebrating the birth of Jesus Christ.</p>
+
+        <p>In his most famous work, <em>The Lion, the Witch, and the Wardrobe</em> <span class="ref-word">(n. 衣櫥)</span>, Lewis tells a story set in the <strong class="vocab-highlight">fantasy</strong> world of Narnia. Because of a <strong class="vocab-highlight">curse</strong> cast by an evil witch, it is always winter in Narnia, and yet Christmas never comes. However, halfway <span class="ref-word">(adv. 到一半)</span> through the book, Father Christmas arrives to help the main characters. His presence breaks the witch's spell: The snow begins to melt, and life returns to the land. For Lewis, this scene showed how the spirit of Christmas could <strong class="vocab-highlight">restore</strong> Narnia—just as Jesus brought hope and renewal <span class="ref-word">(n. 重新開始；重生)</span> to the world.</p>
+
+        <p>Another beloved classic, <em>A Christmas Carol</em> by Charles Dickens, tells of Ebenezer Scrooge, a man who hates Christmas and treats others with cold <strong class="vocab-highlight">cruelty</strong>. On Christmas Eve, three ghosts visit him, revealing how his bitterness <span class="ref-word">(n. 憤怒、怨恨；苦味)</span> has damaged himself and those around him. Moved by these visions, Scrooge promises to change his ways and <strong class="vocab-highlight">transforms</strong> into "as good a friend, as good a master, and as good a man, as the good old city knew."</p>
+
+        <p>Philip Van Doren Stern's short story "The Greatest Gift" delivers a similar message with a twist. On Christmas Eve, a <strong class="vocab-highlight">despairing</strong> man named George wishes he had never been born. A mysterious stranger <strong class="vocab-highlight">grants</strong> his wish and shows him a world without him in it—a world where tragedy strikes those he loves. Realizing his importance, George learns to value himself and cherish life as the greatest gift.</p>
+
+        <p>Though these works offer different <strong class="vocab-highlight">interpretations</strong> of why Christmas is significant, they share a common truth: The season's meaning <span class="phrase-highlight">goes far beyond</span> new presents or holiday meals. The stories remind us that the true spirit of Christmas lies in renewal, <strong class="vocab-highlight">generosity</strong>, and appreciating the value of life itself—lessons worth remembering every year.</p>
+    </div>
+</div>
+
+<!-- TAB 2: 單字介紹 -->
+<div id="tab2" class="content">
+    <h2>Vocabulary List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Word</th>
+                <th>Meaning</th>
+                <th>Magazine Example</th>
+            </tr>
+        </thead>
+        <tbody id="vocabTableBody">
+            <!-- Populated by JS -->
+        </tbody>
+    </table>
+
+    <h2>Vocabulary Quiz</h2>
+    <p>Test your knowledge with these mixed questions (Definition & New Context).</p>
+    <div id="vocabQuizContainer" class="quiz-container">
+        <!-- Populated by JS -->
+    </div>
+</div>
+
+<!-- TAB 3: 文法講解 -->
+<div id="tab3" class="content">
+    <h2>Language Spotlight</h2>
+    
+    <div class="grammar-point">
+        <div class="grammar-title">1. take away from 減少、降低、削弱</div>
+        <p>take away from sth 表示「減低、削弱某事物的價值或重要性」。</p>
+        <div class="example">Some people worry that turning historical sites into tourist attractions can take away from their cultural significance.</div>
+    </div>
+
+    <div class="grammar-point">
+        <div class="grammar-title">2. go beyond 超越、超乎；不僅僅是……</div>
+        <p>go 在此指「延伸到」，與第4行 goes much deeper than... 意思相同；beyond 為介系詞，表示「超乎（某範圍、程度等）」。go beyond 除了字面上的「超越」，外，也常表示「不僅僅是……、不止於……」，之後可接名詞或 V-ing。</p>
+        <div class="example">Genevieve's kindness often goes beyond what anyone could reasonably expect.</div>
+        <div class="example">As a college professor, my responsibilities go well beyond just lecturing in classes.</div>
+    </div>
+
+    <h2>Sentence Patterns</h2>
+    <div class="grammar-point" style="border-left-color: var(--accent-color);">
+        <div class="grammar-title">Participial Construction (分詞構句)</div>
+        <p><strong>Moved by these visions, Scrooge promises to change his ways...</strong></p>
+        <p>為省略主詞並連接詞的分詞構句用法。原句為：<em>Because he is moved by these visions...</em>。過去分詞 <strong>moved</strong> 表示被動（被景象所感動）。</p>
+    </div>
+
+    <div class="grammar-point" style="border-left-color: var(--accent-color);">
+        <div class="grammar-title">as + adj. + a/an + N. + as S. + V. / N.</div>
+        <p>此為原級比較句型，常用來表示「和……一樣……的人或事物」。當比較的名詞是單數可數名詞時，結構需用 <strong>adj. + a/an + N.</strong>。若後置 as + S. + V. 的動詞與前置相同，可直接省略或形成 as + N. 的形式，或用助動詞代替。</p>
+        <div class="example">Adam is <strong>as good a soccer player as</strong> anyone on the team. (亞當和隊上的任何人一樣都是優秀的足球員。)</div>
+        <div class="example">Mr. Davis is <strong>as good an actor as</strong> Mr. Kent (is). (戴維斯先生和肯特先生一樣都是好演員。)</div>
+    </div>
+
+    <div class="word-builder">
+        <h3>Word Builder: -ous</h3>
+        <p>-ous 為形容詞字尾，表示「充滿……的；具有……性質的」。</p>
+        <ul>
+            <li><strong>mysterious</strong> [adj.] 神祕的、難以理解的 (from mystery)</li>
+            <li><strong>furious</strong> [adj.] 暴怒的 (from fury)</li>
+            <li><strong>enormous</strong> [adj.] 巨大的、龐大的</li>
+            <li><strong>continuous</strong> [adj.] 連續不斷的、持續的 (from continue)</li>
+            <li><strong>numerous</strong> [adj.] 許多的、大量的 (from number)</li>
+        </ul>
+    </div>
+
+    <div class="idiom-box">
+        <h3>Christmas Idioms in Everyday Language</h3>
+        <div class="idiom-item">
+            <div class="idiom-title">❖ Scrooge</div>
+            <p>形容吝嗇或小氣的人。</p>
+            <div class="example">He's such a Scrooge—he won't even donate a dollar to charity.</div>
+        </div>
+        <div class="idiom-item">
+            <div class="idiom-title">❖ Grinch</div>
+            <p>形容討厭節慶或專門掃興的人（出自 Dr. Seuss 的 <em>How the Grinch Stole Christmas!</em>）。</p>
+            <div class="example">Don't be a Grinch about the office holiday party.</div>
+        </div>
+        <div class="idiom-item">
+            <div class="idiom-title">❖ Christmas comes early</div>
+            <p>指好事提前發生，出乎意料的驚喜。</p>
+            <div class="example">It felt like Christmas came early when I found that bonus in my paycheck.</div>
+        </div>
+        <div class="idiom-item">
+            <div class="idiom-title">❖ Like a kid on Christmas morning</div>
+            <p>形容極度興奮或迫不及待。</p>
+            <div class="example">She was like a kid on Christmas morning when she saw her new car.</div>
+        </div>
+    </div>
+
+    <h2>Grammar Check</h2>
+    <div id="grammarQuizContainer" class="quiz-container"></div>
+</div>
+
+<!-- TAB 4: 練習題 -->
+<div id="tab4" class="content">
+    <h2>I. Magazine Integrated Questions</h2>
+    <div id="magQuizContainer" class="quiz-container"></div>
+
+    <h2>II. GSAT Practice: Cloze Test (綜合測驗)</h2>
+    <div class="article-text" style="font-size: 1rem;">
+        <p>For centuries, the true meaning of Christmas has been a popular subject in literature. In C.S. Lewis's Narnia, the arrival of Father Christmas helps __1__ the land from an endless winter, symbolizing hope. In Charles Dickens's classic, Ebenezer Scrooge is a man full of __2__. However, after seeing visions of the past, present, and future, he undergoes a dramatic transformation. Another story features a __3__ man named George who wishes he had never been born. But after seeing the world without him, he realizes that life is a gift. These stories suggest that Christmas __4__ mere celebrations. It is a time for __5__, renewal, and appreciating the people around us.</p>
+    </div>
+    <div id="clozeQuizContainer" class="quiz-container"></div>
+
+    <h2>III. GSAT Practice: Reading Comprehension (閱讀測驗)</h2>
+    <div id="readingQuizContainer" class="quiz-container"></div>
+</div>
+
+<script>
+    // --- Data ---
+    const vocabList = [
+        { 
+            word: "insight", pos: "[n.]", meaning: "洞悉、深入了解；深刻見解", 
+            sentence: "From speaking with the manager, Sheryl gained some insights into how the system works.",
+            quizSentence: "The documentary offered a fascinating _____ into the daily lives of lions in the wild."
+        },
+        { 
+            word: "literature", pos: "[n.]", meaning: "文學；文學作品", 
+            sentence: "Our teacher assigned us two pieces of classic literature to read over the winter break.",
+            quizSentence: "She is studying French _____ at the university because she loves reading novels."
+        },
+        { 
+            word: "devoted", pos: "[adj.]", meaning: "虔誠的、專心致志的；忠誠的", 
+            sentence: "Rose and Cody are devoted fans who attend almost all of the band's shows.",
+            quizSentence: "He is a _____ father who spends every weekend playing sports with his children."
+        },
+        { 
+            word: "fantasy", pos: "[n.]", meaning: "幻想；奇幻文學", 
+            sentence: "Jarvis enjoys writing stories filled with magical creatures and other fantasy elements.",
+            quizSentence: "The movie is a _____ about a young wizard fighting a dark lord."
+        },
+        { 
+            word: "curse", pos: "[n.]", meaning: "咒語；詛咒", 
+            sentence: "Sadie believes that some kind of curse has caused all of her family's troubles over the years.",
+            quizSentence: "In the fairy tale, the princess was put under a sleeping _____ by the evil witch."
+        },
+        { 
+            word: "restore", pos: "[v.]", meaning: "恢復、復原；修復", 
+            sentence: "The government has promised to restore peace to the region.",
+            quizSentence: "A good night's sleep will help _____ your energy for tomorrow's work."
+        },
+        { 
+            word: "cruelty", pos: "[n.]", meaning: "殘忍、殘酷 (行為)", 
+            sentence: "Survivors of the terrorist attack spoke to reporters about the cruelty they had seen.",
+            quizSentence: "Laws have been passed to prevent _____ to animals."
+        },
+        { 
+            word: "transform", pos: "[v.]", meaning: "轉變、徹底改變", 
+            sentence: "The children watched in amazement as the caterpillar transformed into a butterfly.",
+            quizSentence: "A fresh coat of paint can completely _____ the look of an old room."
+        },
+        { 
+            word: "despairing", pos: "[adj.]", meaning: "絕望的、失去希望的", 
+            sentence: "She gave him a despairing look just before the emergency room doors closed.",
+            quizSentence: "The refugees let out a _____ cry when they realized the border was closed."
+        },
+        { 
+            word: "grant", pos: "[v.]", meaning: "准予、授予；同意", 
+            sentence: "After a long wait, Stefanie was finally granted permission to speak at the meeting.",
+            quizSentence: "The genie told Aladdin that he would _____ him three wishes."
+        },
+        { 
+            word: "interpretation", pos: "[n.]", meaning: "詮釋；解釋；口譯", 
+            sentence: "Professor Hall's interpretation helped the students understand the painting better.",
+            quizSentence: "Her _____ of the poem was very different from what the teacher suggested."
+        },
+        { 
+            word: "generosity", pos: "[n.]", meaning: "慷慨、大方", 
+            sentence: "Graham showed his generosity by giving Eric a place to stay when Eric's house got flooded.",
+            quizSentence: "Thank you for your _____; this donation will help many poor families."
+        }
+    ];
+
+    // --- Tab Logic ---
+    function switchTab(tabId) {
+        document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    // --- Display Features ---
+    function toggleTheme() {
+        if (document.body.getAttribute('data-theme') === 'dark') {
+            document.body.removeAttribute('data-theme');
+        } else {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+    }
+
+    let fontSize = 100;
+    function adjustFont(dir) {
+        fontSize += dir * 10;
+        if (fontSize < 80) fontSize = 80;
+        if (fontSize > 150) fontSize = 150;
+        document.querySelector('.article-text').style.fontSize = fontSize + '%';
+    }
+
+    // --- Quiz Generators ---
+
+    function createQuizItem(id, question, options, answerIndex, explanation) {
+        let html = `<div class="question-box" id="q-${id}">
+            <p><strong>${question}</strong></p>
+            <div class="options">`;
+        
+        options.forEach((opt, idx) => {
+            html += `<label><input type="radio" name="q${id}" value="${idx}"> (${String.fromCharCode(65+idx)}) ${opt}</label>`;
+        });
+
+        html += `</div>
+            <button class="btn-check" onclick="checkAnswer('${id}', ${answerIndex})">Check Answer</button>
+            <div class="feedback" id="fb-${id}">
+                <span class="msg"></span>
+                <div style="font-weight:normal; margin-top:5px; font-size:0.9em">${explanation}</div>
+            </div>
+        </div>`;
+        return html;
+    }
+
+    function checkAnswer(id, correctIdx) {
+        const selected = document.querySelector(`input[name="q${id}"]:checked`);
+        const feedback = document.getElementById(`fb-${id}`);
+        const msg = feedback.querySelector('.msg');
+        
+        if (!selected) return;
+
+        feedback.className = 'feedback'; // reset
+        if (parseInt(selected.value) === correctIdx) {
+            feedback.classList.add('correct');
+            msg.textContent = "✅ Correct!";
+        } else {
+            feedback.classList.add('wrong');
+            msg.textContent = `❌ Incorrect. The correct answer is (${String.fromCharCode(65+correctIdx)}).`;
+        }
+    }
+
+    // --- Initialization ---
+    window.onload = function() {
+        // 1. Populate Vocab Table
+        const tbody = document.getElementById('vocabTableBody');
+        vocabList.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td><strong>${item.word}</strong> <span style="font-size:0.8em; color:gray">${item.pos}</span></td><td>${item.meaning}</td><td>${item.sentence}</td>`;
+            tbody.appendChild(tr);
+        });
+
+        // 2. Generate Vocab Quiz (Improved Variety)
+        let vocabQuizHTML = "";
+        let shuffledVocab = [...vocabList].sort(() => 0.5 - Math.random());
+        
+        shuffledVocab.forEach((wordData, i) => {
+            const type = Math.random() > 0.5 ? 'def' : 'context'; 
+            let question, options, answer, explanation;
+
+            if (type === 'def') {
+                question = `${i+1}. What is the meaning of "<strong>${wordData.word}</strong>"?`;
+                let distractors = vocabList.filter(w => w.word !== wordData.word).sort(() => 0.5 - Math.random()).slice(0, 3).map(w => w.meaning);
+                let optionList = [wordData.meaning, ...distractors].sort(() => 0.5 - Math.random());
+                options = optionList;
+                answer = optionList.indexOf(wordData.meaning);
+                explanation = `<strong>${wordData.word}</strong>: ${wordData.meaning}`;
+            } else {
+                question = `${i+1}. Fill in the blank: <br> "${wordData.quizSentence.replace('_____', '_____')}"`;
+                let distractors = vocabList.filter(w => w.word !== wordData.word).sort(() => 0.5 - Math.random()).slice(0, 3).map(w => w.word);
+                let optionList = [wordData.word, ...distractors].sort(() => 0.5 - Math.random());
+                options = optionList;
+                answer = optionList.indexOf(wordData.word);
+                explanation = `Complete sentence: "${wordData.quizSentence.replace('_____', wordData.word)}"`;
+            }
+            vocabQuizHTML += createQuizItem(`v${i}`, question, options, answer, explanation);
+        });
+        document.getElementById('vocabQuizContainer').innerHTML = vocabQuizHTML;
+
+        // 3. Grammar Quiz
+        let grammarHTML = "";
+        grammarHTML += createQuizItem('g1', 'Too much noise can _____ the pleasure of dining at a nice restaurant.', ['take away from', 'go beyond', 'transform into', 'restore to'], 0, 'take away from (減損; 削弱)。');
+        grammarHTML += createQuizItem('g2', 'This new smartphone is _____ any other model on the market.', ['as good a device as', 'as a good device as', 'so good device as', 'good as device as'], 0, 'as + adj. + a/an + N. + as ... (原級比較句型)。');
+        grammarHTML += createQuizItem('g3', '_____ by the sad news, she started to cry.', ['Moving', 'To move', 'Moved', 'Move'], 2, '分詞構句：(Being) Moved by... (因為被感動/觸動)。');
+        grammarHTML += createQuizItem('g4', 'Stop being such a _____ and buy your brother a present!', ['Grinch', 'Santa', 'Ghost', 'Christmas'], 0, 'Grinch (掃興的人; 討厭節慶的人)。');
+        document.getElementById('grammarQuizContainer').innerHTML = grammarHTML;
+
+        // 4. Integrated & GSAT Quiz
+        let magHTML = "";
+        // Magazine Questions
+        magHTML += createQuizItem('m1', 'Which of the following questions does day one of the article NOT answer?', 
+            ['Why was it always winter in Narnia?', 'What was C. S. Lewis\'s nationality?', 'In what year was Lewis\'s most famous work published?', 'What aspects of modern Christmas did Lewis dislike?'], 
+            2, '文章提到 Lewis 是 British author (B)，Narnia 的冬天是因為 curse (A)，他不喜歡 overly commercial aspects (D)。唯獨沒有提到出版年份 (C)。');
+        
+        magHTML += createQuizItem('m2', 'Fill in the blank: "By the end of A Christmas Carol, Ebenezer Scrooge has been completely _____ from a man who was greedy and cruel into one who is kind and generous."', 
+            ['transform', 'transformed', 'transforming', 'transformation'], 
+            1, 'has been completely transformed (已被完全轉變 - 完成被動態)。');
+        document.getElementById('magQuizContainer').innerHTML = magHTML;
+
+        // Cloze
+        let clozeHTML = "";
+        clozeHTML += createQuizItem('c1', '1. (A) restore (B) curse (C) grant (D) insight', ['restore', 'curse', 'grant', 'insight'], 0, 'help restore the land (恢復這片土地)。');
+        clozeHTML += createQuizItem('c2', '2. (A) literature (B) cruelty (C) fantasy (D) generosity', ['literature', 'cruelty', 'fantasy', 'generosity'], 1, 'Scrooge is full of cruelty (殘酷)。');
+        clozeHTML += createQuizItem('c3', '3. (A) devoted (B) continuous (C) despairing (D) festive', ['devoted', 'continuous', 'despairing', 'festive'], 2, 'a despairing man (絕望的人)。');
+        clozeHTML += createQuizItem('c4', '4. (A) goes beyond (B) takes away from (C) dates back to (D) shows off', ['goes beyond', 'takes away from', 'dates back to', 'shows off'], 0, 'goes beyond mere celebrations (不僅僅是/超乎慶祝活動)。');
+        clozeHTML += createQuizItem('c5', '5. (A) interpretation (B) bitterness (C) generosity (D) curse', ['interpretation', 'bitterness', 'generosity', 'curse'], 2, 'It is a time for generosity (慷慨)。');
+        document.getElementById('clozeQuizContainer').innerHTML = clozeHTML;
+
+        // Reading Comprehension
+        let readHTML = "";
+        readHTML += createQuizItem('r1', 'What is the common theme shared by the three stories mentioned in the article?', 
+            ['Christmas should be celebrated with roast turkey.', 'Magic is the only way to solve problems.', 'The true spirit of Christmas involves renewal and love.', 'Ghosts are real and can change the future.'], 
+            2, '文章最後一段提到：they share a common truth... lies in renewal, generosity, and appreciating the value of life.');
+        readHTML += createQuizItem('r2', 'Why did C.S. Lewis dislike the modern way of celebrating Christmas?', 
+            ['He hated receiving cards.', 'He thought it was too commercial.', 'He preferred Easter.', 'He didn\'t like winter.'], 
+            1, '文章第二段提到：disliked the overly commercial aspects of modern Christmas.');
+        document.getElementById('readingQuizContainer').innerHTML = readHTML;
+    };
+</script>
+
+</body>
+</html>
