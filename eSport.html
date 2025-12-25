@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 13: Are eSports Really Sports?</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --bg-color: #f4f7f6;
+            --panel-height: 75vh;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', Tahoma, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 18px;
+            font-weight: bold;
+            color: #666;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .quiz-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .text-panel, .questions-panel {
+            flex: 1;
+            height: var(--panel-height);
+            overflow-y: auto;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        /* 滾動條美化 */
+        .text-panel::-webkit-scrollbar, .questions-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+        .text-panel::-webkit-scrollbar-thumb, .questions-panel::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+
+        .panel-title {
+            position: sticky;
+            top: -25px;
+            background: white;
+            padding: 10px 0;
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-color);
+            z-index: 10;
+        }
+
+        .blank {
+            display: inline-block;
+            min-width: 50px;
+            border-bottom: 2px solid #333;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0 5px;
+            padding: 0 5px;
+        }
+        .blank.correct { color: var(--success-color); border-bottom-color: var(--success-color); }
+        .blank.wrong { color: var(--error-color); border-bottom-color: var(--error-color); }
+
+        .question-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 8px;
+        }
+
+        .options label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .options label:hover { background: #eef4ff; }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        /* 文法卡片 */
+        .grammar-card {
+            background: #fff;
+            padding: 20px;
+            border-left: 6px solid var(--primary-color);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .grammar-card h3 { color: var(--primary-color); margin-top: 0; }
+
+        .example-box {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 850px) {
+            .quiz-container { flex-direction: column; }
+            .text-panel, .questions-panel { height: auto; overflow-y: visible; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'quiz-tab')">克漏字題組</button>
+        <button class="tab-btn" onclick="openTab(event, 'grammar-tab')">文法觀念補充</button>
+    </div>
+
+    <!-- 分頁 1: 克漏字題組 -->
+    <div id="quiz-tab" class="tab-content active">
+        <div class="quiz-container">
+            <!-- 左欄：文章 -->
+            <div class="text-panel">
+                <h3 class="panel-title">Are eSports Really Sports?</h3>
+                <p>
+                    People love to compete, and throughout history we see instances of that taking place. Games were created to test the skills and strength of those <span class="blank" id="b1">(1)</span> them. Quite often, people would compete <span class="blank" id="b2">(2)</span> one another in sports games in the hope of becoming champions. These games were <span class="blank" id="b3_1">(3-1)</span> popular <span class="blank" id="b3_2">(3-2)</span> events like the Olympics were eventually formed. The desire to play in sports games, and for spectators to watch them, has long been part of human history.
+                </p>
+                <p>
+                    Today, technology is redefining what sports games mean. In the world of video games, there are now professional "athletes" <span class="blank" id="b4">(4)</span> compete against each other and draw large audiences that want to watch them play. These players can compete in solo event or play as part of a team, just like in the Olympic Games. However, <span class="blank" id="b5">(5)</span> going through serious physical training to prepare for the competition, these video game athletes hone their skills by watching a video screen.
+                </p>
+                <p>
+                    Those who reach the top level and are able to compete in video game competitions are professional. Basically, this means that there is enough prize money to be won for the players to <span class="blank" id="b6">(6)</span> by doing it. In Taiwan, these players often join the Taiwan eSports League (TeSL).
+                </p>
+                <p>
+                    <span class="blank" id="b7">(7)</span> in 2008, TeSL brought professional video game competitions to the television screen. The players are paid a base salary, and they live together in a team house. Like athletes, they have an inner drive to win.
+                </p>
+                <p>
+                    <span class="blank" id="b8">(8)</span> the popularity of eSports, the Taiwanese government has not recognized eSports as an official sport. One of the objections raised is that eSports are not Olympic sports, and therefore shouldn't be <span class="blank" id="b9">(9)</span> part of the sports industry. However, other countries have recognized eSports as <span class="blank" id="b10">(10)</span> sports, and some members of Taiwan's government have shown support for such official recognition. What the future holds for eSports is yet to be determined.
+                </p>
+            </div>
+
+            <!-- 右欄：題目 -->
+            <div class="questions-panel">
+                <h3 class="panel-title">Questions</h3>
+                <form id="quiz-form">
+                    <!-- Q1 -->
+                    <div class="question-item">
+                        <p><b>1.</b> (A) plays &nbsp; (B) playing &nbsp; (C) played &nbsp; (D) play</p>
+                        <div class="options">
+                            <label><input type="radio" name="q1" value="plays"> (A) plays </label>
+ 			    <label><input type="radio" name="q1" value="playing"> (B) playing</label>
+                            <label><input type="radio" name="q1" value="played"> (C) played</label>
+                            <label><input type="radio" name="q1" value="play"> (D) play</label>
+                        </div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="question-item">
+                        <p><b>2.</b> (A) to &nbsp; (B) in &nbsp; (C) against &nbsp; (D) from</p>
+                        <div class="options">
+                            <label><input type="radio" name="q2" value="to"> (A) to</label>
+                            <label><input type="radio" name="q2" value="in"> (B) in</label>
+                            <label><input type="radio" name="q2" value="against"> (C) against</label>
+                            <label><input type="radio" name="q2" value="from"> (D) from</label>
+                        </div>
+                    </div>
+                    <!-- Q3 -->
+                    <div class="question-item">
+                        <p><b>3.</b> (A) so; that &nbsp; (B) too; to &nbsp; (C) as; as &nbsp; (D) such; that</p>
+                        <div class="options">
+                            <label><input type="radio" name="q3" value="so...that"> (A) so; that</label>
+                            <label><input type="radio" name="q3" value="too...to"> (B) too; to</label>
+                            <label><input type="radio" name="q3" value="as...as"> (C) as; as</label>
+                            <label><input type="radio" name="q3" value="such...that"> (D) such; that</label>
+                        </div>
+                    </div>
+                    <!-- Q4 -->
+                    <div class="question-item">
+                        <p><b>4.</b> (A) who &nbsp; (B) whom &nbsp; (C) which &nbsp; (D) whose</p>
+                        <div class="options">
+                            <label><input type="radio" name="q4" value="who"> (A) who</label>
+                            <label><input type="radio" name="q4" value="whom"> (B) whom</label>
+                            <label><input type="radio" name="q4" value="which"> (C) which</label>
+                            <label><input type="radio" name="q4" value="whose"> (D) whose</label>
+                        </div>
+                    </div>
+                    <!-- Q5 -->
+                    <div class="question-item">
+                        <p><b>5.</b> (A) because of &nbsp; (B) owing to &nbsp; (C) according to &nbsp; (D) rather than</p>
+                        <div class="options">
+                            <label><input type="radio" name="q5" value="because of"> (A) because of</label>
+                            <label><input type="radio" name="q5" value="owing to"> (B) owing to</label>
+                            <label><input type="radio" name="q5" value="according to"> (C) according to</label>
+                            <label><input type="radio" name="q5" value="rather than"> (D) rather than</label>
+                        </div>
+                    </div>
+                    <!-- Q6 -->
+                    <div class="question-item">
+                        <p><b>6.</b> (A) stay up &nbsp; (B) put off &nbsp; (C) make a living &nbsp; (D) bump into</p>
+                        <div class="options">
+                            <label><input type="radio" name="q6" value="stay up"> (A) stay up</label>
+                            <label><input type="radio" name="q6" value="put off"> (B) put off</label>
+                            <label><input type="radio" name="q6" value="make a living"> (C) make a living</label>
+                            <label><input type="radio" name="q6" value="bump into"> (D) bump into</label>
+                        </div>
+                    </div>
+                    <!-- Q7 -->
+                    <div class="question-item">
+                        <p><b>7.</b> (A) Founding &nbsp; (B) Founded &nbsp; (C) Founder &nbsp; (D) Founds</p>
+                        <div class="options">
+                            <label><input type="radio" name="q7" value="Founding"> (A) Founding</label>
+                            <label><input type="radio" name="q7" value="Founded"> (B) Founded</label>
+                            <label><input type="radio" name="q7" value="Founder"> (C) Founder</label>
+                            <label><input type="radio" name="q7" value="Founds"> (D) Founds</label>
+                        </div>
+                    </div>
+                    <!-- Q8 -->
+                    <div class="question-item">
+                        <p><b>8.</b> (A) Except &nbsp; (B) Besides &nbsp; (C) From &nbsp; (D) Despite</p>
+                        <div class="options">
+                            <label><input type="radio" name="q8" value="Except"> (A) Except</label>
+                            <label><input type="radio" name="q8" value="Besides"> (B) Besides</label>
+                            <label><input type="radio" name="q8" value="From"> (C) From</label>
+                            <label><input type="radio" name="q8" value="Despite"> (D) Despite</label>
+                        </div>
+                    </div>
+                    <!-- Q9 -->
+                    <div class="question-item">
+                        <p><b>9.</b> (A) regarded &nbsp; (B) seen &nbsp; (C) viewed &nbsp; (D) considered</p>
+                        <div class="options">
+                            <label><input type="radio" name="q9" value="regarded"> (A) regarded</label>
+                            <label><input type="radio" name="q9" value="seen"> (B) seen</label>
+                            <label><input type="radio" name="q9" value="viewed"> (C) viewed</label>
+                            <label><input type="radio" name="q9" value="considered"> (D) considered</label>
+                        </div>
+                    </div>
+                    <!-- Q10 -->
+                    <div class="question-item">
+                        <p><b>10.</b> (A) legal &nbsp; (B) classical &nbsp; (C) initial &nbsp; (D) frequent</p>
+                        <div class="options">
+                            <label><input type="radio" name="q10" value="legal"> (A) legal</label>
+                            <label><input type="radio" name="q10" value="classical"> (B) classical</label>
+                            <label><input type="radio" name="q10" value="initial"> (C) initial</label>
+                            <label><input type="radio" name="q10" value="frequent"> (D) frequent</label>
+                        </div>
+                    </div>
+
+                    <button type="button" class="submit-btn" onclick="checkAnswers()">Submit (提交檢查分數)</button>
+                </form>
+                <div id="result-message" style="text-align: center; font-size: 1.2em; font-weight: bold;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分頁 2: 文法補充 -->
+    <div id="grammar-tab" class="tab-content">
+        <div class="grammar-card">
+            <h3>📖 「A 被認為是 B」的句型解析</h3>
+            <p>這類句型用來表示某人或某物被視為某種身分或狀態。主要分為兩類動詞：</p>
+            
+            <div class="example-box">
+                <b>第一類：不需要 as 的動詞</b>
+                <ul>
+                    <li>A be <b>considered</b> (to be) B</li>
+                    <li>A be <b>thought</b> (to be) B</li>
+                </ul>
+                <p><i>Example: Tracy is <b>considered</b> (to be) the smartest student.</i></p>
+            </div>
+
+            <div class="example-box">
+                <b>第二類：必須搭配 as 的動詞</b>
+                <ul>
+                    <li>A be <b>thought of</b> as B</li>
+                    <li>A be <b>seen</b> as B</li>
+                    <li>A be <b>viewed</b> as B</li>
+                    <li>A be <b>regarded</b> as B</li>
+                </ul>
+                <p><i>Example: Tracy is <b>regarded as</b> the smartest student.</i></p>
+            </div>
+
+            <div class="example-box" style="border-left: 4px solid #dc3545;">
+                <b>⚠️ 易錯點提醒 (第九題關鍵)</b>
+                <p>在第九題中，空格後直接接了 <code>part of the sports industry</code>，中間**沒有** <code>as</code>。因此我們必須選擇 <b>considered</b>，而不能選 regarded/seen/viewed。</p>
+            </div>
+        </div>
+
+        <div class="grammar-card">
+            <h3>📝 其他重點單字</h3>
+            <ul>
+                <li><b>make a living:</b> 謀生 (第六題)</li>
+                <li><b>rather than:</b> 而不是 (第五題)</li>
+                <li><b>despite:</b> 儘管 (第八題，後接名詞)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 您提供的正確答案
+    const answers = {
+        q1: "playing",
+        q2: "against",
+        q3: "so...that",
+        q4: "who",
+        q5: "rather than",
+        q6: "make a living",
+        q7: "Founded",
+        q8: "Despite",
+        q9: "considered",
+        q10: "legal"
+    };
+
+    function openTab(evt, tabName) {
+        let i, tabContent, tabBtns;
+        tabContent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabContent.length; i++) tabContent[i].classList.remove("active");
+        tabBtns = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tabBtns.length; i++) tabBtns[i].classList.remove("active");
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const resultMsg = document.getElementById('result-message');
+
+        for (let i = 1; i <= 10; i++) {
+            const qName = 'q' + i;
+            const userAnswer = form.elements[qName].value;
+            const isCorrect = userAnswer === answers[qName];
+
+            // 處理雙空格的第三題
+            if (i === 3) {
+                const b3_1 = document.getElementById('b3_1');
+                const b3_2 = document.getElementById('b3_2');
+                if (isCorrect) {
+                    b3_1.innerText = "so";
+                    b3_2.innerText = "that";
+                    b3_1.className = b3_2.className = "blank correct";
+                    score++;
+                } else {
+                    b3_1.innerText = "___";
+                    b3_2.innerText = "___";
+                    b3_1.className = b3_2.className = "blank wrong";
+                }
+            } else {
+                const blank = document.getElementById('b' + i);
+                if (isCorrect) {
+                    blank.innerText = userAnswer;
+                    blank.className = "blank correct";
+                    score++;
+                } else {
+                    blank.innerText = userAnswer || "(" + i + ")";
+                    blank.className = "blank wrong";
+                }
+            }
+        }
+
+        resultMsg.innerHTML = `得分：${score * 10} 分 / 100 分`;
+        resultMsg.style.color = (score === 10) ? "var(--success-color)" : "var(--error-color)";
+    }
+</script>
+
+</body>
+</html>

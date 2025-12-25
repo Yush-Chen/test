@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 18: Vitamins - 完整四選項互動版</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --bg-color: #ecf0f1;
+            --panel-height: 75vh;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', Tahoma, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 3px solid #ddd;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            padding: 12px 30px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 18px;
+            font-weight: bold;
+            color: #7f8c8d;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--accent-color);
+            border-bottom: 3px solid var(--accent-color);
+            margin-bottom: -3px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .quiz-container {
+            display: flex;
+            gap: 25px;
+        }
+
+        .text-panel, .questions-panel {
+            flex: 1;
+            height: var(--panel-height);
+            overflow-y: auto;
+            padding: 30px;
+            border: 1px solid #dcdde1;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .text-panel::-webkit-scrollbar, .questions-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+        .text-panel::-webkit-scrollbar-thumb, .questions-panel::-webkit-scrollbar-thumb {
+            background-color: #bdc3c7;
+            border-radius: 10px;
+        }
+
+        .panel-title {
+            position: sticky;
+            top: -30px;
+            background: white;
+            padding: 10px 0;
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            z-index: 10;
+        }
+
+        .blank {
+            display: inline-block;
+            min-width: 60px;
+            border-bottom: 2px solid #2c3e50;
+            text-align: center;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 0 5px;
+            padding: 0 8px;
+        }
+        .blank.correct { color: var(--success-color); border-bottom-color: var(--success-color); }
+        .blank.wrong { color: var(--error-color); border-bottom-color: var(--error-color); }
+
+        .question-item {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #bdc3c7;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .options-grid label {
+            display: block;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+            background: white;
+            border: 1px solid #eee;
+            transition: 0.2s;
+        }
+
+        .options-grid label:hover { background: #ffeaa7; }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+
+        .grammar-card {
+            background: #fff;
+            padding: 25px;
+            border-left: 6px solid var(--accent-color);
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .example-box {
+            background: #fdf2e9;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border: 1px dashed #e67e22;
+        }
+
+        .highlight { color: #d35400; font-weight: bold; }
+
+        @media (max-width: 850px) {
+            .quiz-container { flex-direction: column; }
+            .text-panel, .questions-panel { height: auto; overflow-y: visible; }
+            .options-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'quiz-tab')">Cloze Test (題組)</button>
+        <button class="tab-btn" onclick="openTab(event, 'grammar-tab')">Grammar Focus (文法補充)</button>
+    </div>
+
+    <!-- 分頁 1: 克漏字 -->
+    <div id="quiz-tab" class="tab-content active">
+        <div class="quiz-container">
+            <div class="text-panel">
+                <h2 class="panel-title">Vitamins</h2>
+                <p>Vitamin research may be the fastest growing area of research in medicine. <span class="blank" id="b1">(1)</span> the fact that the public trusts vitamins to do exactly what their manufacturers say they will do and rushes to buy vitamins, there are a great many misunderstandings and myths about what vitamins are and how consumers should use them. And research has proven these myths wrong.</p>
+                <p>First of all, many vitamins simply will not do <span class="blank" id="b2">(2)</span> is often claimed. Vitamin C has never been proven to aid in the prevention of colds. B vitamins do not <span class="blank" id="b3">(3)</span> tiredness. Any effect a person feels when taking a B-12 capsule, <span class="blank" id="b4">(4)</span>, is purely a psychological effect. B-12 deficiencies are rare, and even in cases where B-12 treatment is necessary, the vitamin must be injected because it is ineffective when <span class="blank" id="b5">(5)</span> orally.</p>
+                <p>Vitamin E is often said to prevent heart disease, improve virility, and slow the aging <span class="blank" id="b6">(6)</span>. However, the fact that male rats become sterile when lacking in vitamin E doesn't mean the same thing <span class="blank" id="b7">(7)</span> humans who have the same problem.</p>
+                <p>The most common vitamins are A, B-1, B-2, C, and D; and if you eat a balanced diet that <span class="blank" id="b8">(8)</span> these vitamins, it's unnecessary for you to take any other vitamin pills. Though many people claim that you should eat special foods or take vitamin pills daily to make sure you are getting the correct quantity of vitamins, this is simply not true. <span class="blank" id="b9">(9)</span>, you may take in too much of vitamins by doing this. Some vitamins are toxic if you take in too much of them. The truth is that vitamin <span class="blank" id="b10">(10)</span> is often more severe than vitamin deficiency.</p>
+            </div>
+
+            <div class="questions-panel">
+                <h3 class="panel-title">Questions</h3>
+                <form id="quiz-form">
+                    <!-- Q1 -->
+                    <div class="question-item">
+                        <b>1. 選項</b>
+                        <div class="options-grid">
+                            <label><input type="radio" name="q1" value="Thanks to"> (A) Thanks to</label>
+                            <label><input type="radio" name="q1" value="Because of"> (B) Because of</label>
+                            <label><input type="radio" name="q1" value="In spite"> (C) In spite</label>
+                            <label><input type="radio" name="q1" value="Despite"> (D) Despite</label>
+                        </div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="question-item">
+                        <b>2. 選項</b>
+                        <div class="options-grid">
+                            <label><input type="radio" name="q2" value="the thing"> (A) the thing</label>
+                            <label><input type="radio" name="q2" value="that"> (B) that</label>
+                            <label><input type="radio" name="q2" value="which"> (C) which</label>
+                            <label><input type="radio" name="q2" value="what"> (D) what</label>
+                        </div>
+                    </div>
+                    <!-- Q3 -->
+                    <div class="question-item">
+                        <b>3. 選項</b>
+                        <div class="options-grid">
+                            <label><input type="radio" name="q3" value="get rid of"> (A) get rid of</label>
+                            <label><input type="radio" name="q3" value="give up"> (B) give up</label>
+                            <label><input type="radio" name="q3" value="get along with"> (C) get along with</label>
+                            <label><input type="radio" name="q3" value="put up with"> (D) put up with</label>
+                        </div>
+                    </div>
+                    <!-- Q4 -->
+                    <div class="question-item">
+                        <b>4. 選項</b>
+                        <div class="options-grid">
+                            <label><input type="radio" name="q4" value="as a result"> (A) as a result</label>
+                            <label><input type="radio" name="q4" value="for example"> (B) for example</label>
+                            <label><input type="radio" name="q4" value="in conclusion"> (C) in conclusion</label>
+                            <label><input type="radio" name="q4" value="for one thing"> (D) for one thing</label>
+                        </div>
+                    </div>
+                    <!-- Q5 -->
+                    <div class="question-item">
+                        <b>5. 選項</b>
+                        <div class="options-grid">
+                            <label><input type="radio" name="q5" value="to take"> (A) to take</label>
+                            <label><input type="radio" name="q5" value="taking"> (B) taking</label>
+                            <label><input type="radio" name="q5" value="taken"> (C) taken</label>
+                            <label><input type="radio" name="q5" value="it takes"> (D) it takes</label>
+                        </div>
+                    </div>
+                    <!-- Q6 -->
+                    <div class="question-item">
+                        <b>6. 選項</b>
+                        <div class="options-grid">
+                            <label><input type="radio" name="q6" value="process"> (A) process</label>
+                            <label><input type="radio" name="q6" value="access"> (B) access</label>
+                            <label><input type="radio" name="q6" value="program"> (C) program</label>
+                            <label><input type="radio" name="q6" value="project"> (D) project</label>
+                        </div>
+                    </div>
+                    <!-- Q7 -->
+                    <div class="question-item">
+                        <b>7. 選項</b>
+                        <div class="options-grid">
+                            <label><input type="radio" name="q7" value="belongs to"> (A) belongs to</label>
+                            <label><input type="radio" name="q7" value="happens to"> (B) happens to</label>
+                            <label><input type="radio" name="q7" value="refers to"> (C) refers to</label>
+                            <label><input type="radio" name="q7" value="compares with"> (D) compares with</label>
+                        </div>
+                    </div>
+                    <!-- Q8 -->
+                    <div class="question-item">
+                        <b>8. 選項</b>
+                        <div class="options-grid">
+                            <label><input type="radio" name="q8" value="protects"> (A) protects</label>
+                            <label><input type="radio" name="q8" value="prevents"> (B) prevents</label>
+                            <label><input type="radio" name="q8" value="provides"> (C) provides</label>
+                            <label><input type="radio" name="q8" value="consists"> (D) consists</label>
+                        </div>
+                    </div>
+                    <!-- Q9 -->
+                    <div class="question-item">
+                        <b>9. 選項</b>
+                        <div class="options-grid">
+                            <label><input type="radio" name="q9" value="Actual"> (A) Actual</label>
+                            <label><input type="radio" name="q9" value="That is"> (B) That is</label>
+                            <label><input type="radio" name="q9" value="In fact"> (C) In fact</label>
+                            <label><input type="radio" name="q9" value="To sum up"> (D) To sum up</label>
+                        </div>
+                    </div>
+                    <!-- Q10 -->
+                    <div class="question-item">
+                        <b>10. 選項</b>
+                        <div class="options-grid">
+                            <label><input type="radio" name="q10" value="overwork"> (A) overwork</label>
+                            <label><input type="radio" name="q10" value="overweight"> (B) overweight</label>
+                            <label><input type="radio" name="q10" value="overcoat"> (C) overcoat</label>
+                            <label><input type="radio" name="q10" value="overdose"> (D) overdose</label>
+                        </div>
+                    </div>
+                    <button type="button" class="submit-btn" onclick="checkAnswers()">Submit (提交答案)</button>
+                </form>
+                <div id="result-message" style="text-align: center; font-size: 1.3em; font-weight: bold;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分頁 2: 文法補充 -->
+    <div id="grammar-tab" class="tab-content">
+        <div class="grammar-card">
+            <h3>✨ 分詞構句 (Participle Phrases)</h3>
+            <p>當主句與副詞子句的主詞相同時，可以簡化：</p>
+            <div class="example-box">
+                <b>1. 主動關係 → V-ing</b><br>
+                When she asked me... → When <span class="highlight">asking</span> me...
+            </div>
+            <div class="example-box">
+                <b>2. 被動關係 → V-p.p.</b><br>
+                ...when it is taken orally. → ...when <span class="highlight">taken</span> orally. (第 5 題關鍵)
+            </div>
+        </div>
+
+        <div class="grammar-card">
+            <h3>✨ 副詞子句省略規則</h3>
+            <p>若動詞是 be 動詞，可將「主詞」與「be 動詞」一併省略：</p>
+            <div class="example-box">
+                ● Though <span class="highlight">(we were)</span> poor, we lived a happy life.<br>
+                ● While <span class="highlight">(he was)</span> young, he lived with his grandparents.
+            </div>
+        </div>
+
+        <div class="grammar-card">
+            <h3>📝 重點單字</h3>
+            <ul>
+                <li><span class="highlight">Despite:</span> 儘管 (後接名詞，第 1 題)</li>
+                <li><span class="highlight">Get rid of:</span> 消除/擺脫 (第 3 題)</li>
+                <li><span class="highlight">In fact:</span> 事實上 (第 9 題)</li>
+                <li><span class="highlight">Overdose:</span> 服藥過量 (第 10 題)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: "Despite", q2: "what", q3: "get rid of", q4: "for example",
+        q5: "taken", q6: "process", q7: "happens to", q8: "provides",
+        q9: "In fact", q10: "overdose"
+    };
+
+    function openTab(evt, tabName) {
+        const contents = document.getElementsByClassName("tab-content");
+        for (let c of contents) c.classList.remove("active");
+        const btns = document.getElementsByClassName("tab-btn");
+        for (let b of btns) b.classList.remove("active");
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        for (let i = 1; i <= 10; i++) {
+            const val = form.elements['q' + i].value;
+            const blank = document.getElementById('b' + i);
+            if (val === answers['q' + i]) {
+                score++;
+                blank.innerText = val;
+                blank.className = "blank correct";
+            } else {
+                blank.innerText = val || "(" + i + ")";
+                blank.className = "blank wrong";
+            }
+        }
+        const resultMsg = document.getElementById('result-message');
+        resultMsg.innerText = `得分：${score * 10} / 100`;
+        resultMsg.style.color = (score === 10) ? "var(--success-color)" : "var(--error-color)";
+    }
+</script>
+
+</body>
+</html>
